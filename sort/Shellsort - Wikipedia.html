@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html class="client-js ve-not-available" dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Shellsort - Wikipedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Shellsort","wgTitle":"Shellsort","wgCurRevisionId":769695749,"wgRevisionId":769695749,"wgArticleId":77355,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Pages using deprecated image syntax","Webarchive template wayback links","Use dmy dates from September 2010","Sorting algorithms","Comparison sorts"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Shellsort","wgRelevantArticleId":77355,"wgRequestId":"WQqzTwpAMFwAAI3h2uAAAAAO","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags":{}},"wgStableRevisionId":null,"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsShouldSendModuleToUser":false,"wgPopupsConflictsWithNavPopupGadget":false,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":false},"wgRelatedArticles":null,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgWikibaseItemId":"Q848955","wgCentralAuthMobileDomain":false,"wgVisualEditorToolbarScrollOffset":0,"wgEditSubmitButtonLabelPublish":false});mw.loader.state({"ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.cite.styles":"ready","ext.pygments":"ready","ext.math.styles":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.options@0j3lz3q",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens@1dqfd7l",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["ext.cite.a11y","ext.math.scripts","mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.watchlist-notice","ext.gadget.DRN-wizard","ext.gadget.charinsert","ext.gadget.refToolbar","ext.gadget.extra-toolbar-buttons","ext.gadget.switcher","ext.gadget.featured-articles-links","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.interface","ext.quicksurveys.init","ext.centralNotice.geoIP","ext.centralNotice.startUp","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="Shellsort%20-%20Wikipedia_files/load.css">
+<script async="" src="Shellsort%20-%20Wikipedia_files/load_002.php"></script>
+<style>
+.cite-accessibility-label{ top:-99999px;clip:rect( 1px 1px 1px 1px ); clip:rect( 1px,1px,1px,1px ); position:absolute !important;padding:0 !important;border:0 !important;height:1px !important;width:1px !important; overflow:hidden}
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:24px;width:24px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/thumb/0/05/OOjs_UI_icon_advanced.svg/24px-OOjs_UI_icon_advanced.svg.png);background-image:linear-gradient(transparent,transparent),url(//upload.wikimedia.org/wikipedia/commons/0/05/OOjs_UI_icon_advanced.svg);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-ms-transition:opacity 0.15s;-o-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+.skin-vector li.GA,.skin-monobook li.GA,.skin-modern li.GA{list-style-image:url(//upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png)} .skin-vector li.FA,.skin-monobook li.FA{list-style-image:url(//upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png)}.skin-modern li.FA{list-style-image:url(//upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Modern-bullet-star.svg/9px-Modern-bullet-star.svg.png)}
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:0;z-index:1099;padding:0;margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:#fff;cursor:pointer;border:solid 1px #aaa;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:#fff;cursor:pointer;border:solid 1px #aaa;padding:0;margin:0}.suggestions-result{color:#000;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left; overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}.suggestions-result-current{background-color:#4c59a6;color:#fff}.suggestions-special .special-label{color:#808080;text-align:left}.suggestions-special .special-query{color:#000;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:#c0c0c0}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:#fff}.highlight{font-weight:bold}
+@media screen {
+	.tochidden,.toctoggle{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}.toctoggle{font-size:94%}}
+@media print {
+	#toc.tochidden,.toc.tochidden,.toctoggle{display:none}}
+.uls-menu{border-radius:4px; font-size:medium}.uls-search,.uls-language-settings-close-block{border-top-right-radius:4px;border-top-left-radius:4px}.uls-language-list{border-bottom-right-radius:4px;border-bottom-left-radius:4px}.uls-menu.callout .caret-before,.uls-menu.callout .caret-after{border-top:10px solid transparent;border-right:10px solid #c9c9c9;border-bottom:10px solid transparent;display:inline-block;left:-11px; top:17px;position:absolute}.uls-menu.callout .caret-after{border-right:10px solid #fcfcfc;display:inline-block;left:-10px}.uls-menu.callout--languageselection .caret-after{border-right:10px solid #fff}.uls-ui-languages button{margin:5px 15px 5px 0;white-space:nowrap;overflow:hidden}.uls-search-wrapper-wrapper{position:relative;padding-left:40px;margin-top:5px;margin-bottom:5px}.uls-icon-back{background:transparent url(/w/extensions/UniversalLanguageSelector/resources/images/back-grey-ltr.png?90e9b) no-repeat scroll center center;background-image:-webkit-linear-gradient( transparent,transparent ),url(/w/extensions/UniversalLanguageSelector/resources/images/back-grey-ltr.svg?ae714);background-image:linear-gradient( transparent,transparent ),url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20id%3D%22Layer_1%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M7%2013.1l8.9%208.9c.8-.8.8-2%200-2.8l-6.1-6.1%206-6.1c.8-.8.8-2%200-2.8L7%2013.1z%22%20id%3D%22path3%22%20fill%3D%22%23555%22%2F%3E%0A%3C%2Fsvg%3E%0A);background-size:28px;background-position:center center;height:32px;width:40px;display:block;position:absolute;left:0;border-right:1px solid #c9c9c9;opacity:0.8}.uls-icon-back:hover{opacity:1;cursor:pointer}
+@media print{#centralNotice{display:none}}.cn-closeButton{display:inline-block;zoom:1;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAACeklEQVR4Aa1UM3jkcRBN6qS//tTFttPHqmI359VZ5dm2L1zFtr02YlRx5sX2ft/7ed7O/w1M5ufnt8NZQjCBQXhG+IYZe5zjfju7xcHc3NzEzMwM6xOEqNnZ2ZeVlZW827dv1ycmJnbGx8d3Yr5582Z9eXk5D/d4h/empqYm+K0nw3yKcF4sFmdzOJzGgIAAhb29vc7Ozk6/Atrr/fz8lCwWq6m3tzcb72G3nmzFo/NNTU354eHhIltbW72Tk5M2IyND9P79+8ZPnz7VvXnzpoHBYPS4uLhobGxsDMHBwaLa2tp82MF+PVmUUqnMioiI6LOysjLQLCcPS2ZmZn7Ozc39oPtFYG80GgWpqakSS0tLY1hYmEgikWTBfoXsLD16BT3gUWhoqEKtVheREZ+Qu0IEjI+PZ2k0GqFer+cnJSWJra2tDWw2u2FqauoVeEAW3NzcnBcYGCh3dHTUtba2ltNjLvRJSEiQEQEPRENDQzkMBqPXwsKiXyqVFsFDNzc3LWmoqKmp4YIHZIyHDx9WOzg46GJiYmTk5e/h4eHstLQ0CX2ykXST4JPJ8y7sSVM5/QGMf9y4caMHf3r//v1a8IDsGRm04/D58+dtpNFPPNRqtflXrlzpI8G15IEGc2xsrFSlUglwD+Tk5NRBmuTk5A7wgOxbXFxcF8iysrIa1mskEolKvL29Ne7u7mpXV1dNaWlp9fr7X79+VYMMeQieY/dsv5p1r2g2Nja2vWZ7RXNiYuIA0dwlzwYGBjbkGXmURXeLeUa1ul2ebV8BEH+7CiAiASTYvgJ2qc3MzMzF2vz8+XPd27dvG5hMZg+CsV1tHmfXOP5+dqyddgHOI7v1srTdcwAAAABJRU5ErkJggg==);background:url(/w/extensions/CentralNotice/resources/subscribing/CloseWindow19x19.png?7596b)!ie;width:19px;height:19px;text-indent:19px;white-space:nowrap;overflow:hidden}
+.mw-ui-button{font-family:inherit;font-size:1em;display:inline-block;min-width:4em;max-width:28.75em;padding:0.546875em 1em;line-height:1.286;margin:0;border-radius:2px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;*display:inline; zoom:1;vertical-align:middle;background-color:#f8f9fa;color:#222222;border:1px solid #a2a9b1;text-align:center;font-weight:bold;cursor:pointer}.mw-ui-button:visited{color:#222222}.mw-ui-button:hover{background-color:#ffffff;color:#444444;border-color:#a2a9b1}.mw-ui-button:focus{background-color:#ffffff;color:#222222;border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}.mw-ui-button:active,.mw-ui-button.is-on,.mw-ui-button.mw-ui-checked{background-color:#d9d9d9;color:#000000;border-color:#72777d;box-shadow:none}.mw-ui-button:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button:disabled:hover,.mw-ui-button:disabled:active{background-color:#c8ccd1;color:#fff;box-shadow:none;border-color:#c8ccd1}.mw-ui-button:focus{outline-width:0}.mw-ui-button:focus::-moz-focus-inner{border-color:transparent;padding:0}.mw-ui-button:not( :disabled ){-webkit-transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms;-moz-transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms;transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms}.mw-ui-button:disabled{text-shadow:none;cursor:default}.mw-ui-button.mw-ui-big{font-size:1.3em}.mw-ui-button.mw-ui-block{display:block;width:100%;margin-left:auto;margin-right:auto}.mw-ui-button.mw-ui-progressive,.mw-ui-button.mw-ui-constructive{background-color:#3366cc;color:#fff;border:1px solid #3366cc;text-shadow:0 1px rgba(0,0,0,0.1)}.mw-ui-button.mw-ui-progressive:hover,.mw-ui-button.mw-ui-constructive:hover{background-color:#447ff5;border-color:#447ff5}.mw-ui-button.mw-ui-progressive:focus,.mw-ui-button.mw-ui-constructive:focus{box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-progressive:active,.mw-ui-button.mw-ui-constructive:active,.mw-ui-button.mw-ui-progressive.is-on,.mw-ui-button.mw-ui-constructive.is-on,.mw-ui-button.mw-ui-progressive.mw-ui-checked,.mw-ui-button.mw-ui-constructive.mw-ui-checked{background-color:#2a4b8d;border-color:#2a4b8d;box-shadow:none}.mw-ui-button.mw-ui-progressive:disabled,.mw-ui-button.mw-ui-constructive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-progressive:disabled:hover,.mw-ui-button.mw-ui-constructive:disabled:hover,.mw-ui-button.mw-ui-progressive:disabled:active,.mw-ui-button.mw-ui-constructive:disabled:active,.mw-ui-button.mw-ui-progressive:disabled.mw-ui-checked,.mw-ui-button.mw-ui-constructive:disabled.mw-ui-checked{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1;box-shadow:none}.mw-ui-button.mw-ui-progressive.mw-ui-quiet,.mw-ui-button.mw-ui-constructive.mw-ui-quiet{color:#222222}.mw-ui-button.mw-ui-progressive.mw-ui-quiet:hover,.mw-ui-button.mw-ui-constructive.mw-ui-quiet:hover{background-color:transparent;color:#447ff5}.mw-ui-button.mw-ui-progressive.mw-ui-quiet:active,.mw-ui-button.mw-ui-constructive.mw-ui-quiet:active,.mw-ui-button.mw-ui-progressive.mw-ui-quiet.mw-ui-checked,.mw-ui-button.mw-ui-constructive.mw-ui-quiet.mw-ui-checked{color:#2a4b8d}.mw-ui-button.mw-ui-progressive.mw-ui-quiet:focus,.mw-ui-button.mw-ui-constructive.mw-ui-quiet:focus{background-color:transparent;color:#3366cc}.mw-ui-button.mw-ui-progressive.mw-ui-quiet:disabled,.mw-ui-button.mw-ui-constructive.mw-ui-quiet:disabled{color:#c8ccd1}.mw-ui-button.mw-ui-destructive{background-color:#dd3333;color:#fff;border:1px solid #dd3333;text-shadow:0 1px rgba(0,0,0,0.1)}.mw-ui-button.mw-ui-destructive:hover{background-color:#ff4242;border-color:#ff4242}.mw-ui-button.mw-ui-destructive:focus{box-shadow:inset 0 0 0 1px #dd3333,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-destructive:active,.mw-ui-button.mw-ui-destructive.is-on,.mw-ui-button.mw-ui-destructive.mw-ui-checked{background-color:#b32424;border-color:#b32424;box-shadow:none}.mw-ui-button.mw-ui-destructive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-destructive:disabled:hover,.mw-ui-button.mw-ui-destructive:disabled:active,.mw-ui-button.mw-ui-destructive:disabled.mw-ui-checked{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1;box-shadow:none}.mw-ui-button.mw-ui-destructive.mw-ui-quiet{color:#222222}.mw-ui-button.mw-ui-destructive.mw-ui-quiet:hover{background-color:transparent;color:#ff4242}.mw-ui-button.mw-ui-destructive.mw-ui-quiet:active,.mw-ui-button.mw-ui-destructive.mw-ui-quiet.mw-ui-checked{color:#b32424}.mw-ui-button.mw-ui-destructive.mw-ui-quiet:focus{background-color:transparent;color:#dd3333}.mw-ui-button.mw-ui-destructive.mw-ui-quiet:disabled{color:#c8ccd1}.mw-ui-button.mw-ui-quiet{background:transparent;border:0;text-shadow:none;color:#222222}.mw-ui-button.mw-ui-quiet:hover{background-color:transparent;color:#444444}.mw-ui-button.mw-ui-quiet:active,.mw-ui-button.mw-ui-quiet.mw-ui-checked{color:#000000}.mw-ui-button.mw-ui-quiet:focus{background-color:transparent;color:#222222}.mw-ui-button.mw-ui-quiet:disabled{color:#c8ccd1}.mw-ui-button.mw-ui-quiet:hover,.mw-ui-button.mw-ui-quiet:focus{box-shadow:none}.mw-ui-button.mw-ui-quiet:active,.mw-ui-button.mw-ui-quiet:disabled{background:transparent}input.mw-ui-button::-moz-focus-inner,button.mw-ui-button::-moz-focus-inner{margin-top:-1px;margin-bottom:-1px}a.mw-ui-button{text-decoration:none}a.mw-ui-button:hover,a.mw-ui-button:focus{text-decoration:none}.mw-ui-button-group > *{min-width:48px;border-radius:0;float:left}.mw-ui-button-group > *:first-child{border-top-left-radius:2px;border-bottom-left-radius:2px}.mw-ui-button-group > *:not( :first-child ){border-left:0}.mw-ui-button-group > *:last-child{border-top-right-radius:2px;border-bottom-right-radius:2px}.mw-ui-button-group .is-on .button{cursor:default}
+.mw-ui-icon{position:relative;line-height:1.5em;min-height:1.5em;min-width:1.5em}.mw-ui-icon.mw-ui-icon-element{text-indent:-999px;overflow:hidden;width:3.5em;min-width:3.5em;max-width:3.5em}.mw-ui-icon.mw-ui-icon-element:before{left:0;right:0;position:absolute;margin:0 1em}.mw-ui-icon.mw-ui-icon-before:before,.mw-ui-icon.mw-ui-icon-element:before{background-position:50% 50%;background-repeat:no-repeat;background-size:100% auto;float:left;display:block;min-height:1.5em;content:''}.mw-ui-icon.mw-ui-icon-before:before{position:relative;width:1.5em;margin-right:1em}.mw-ui-icon.mw-ui-icon-small:before{background-size:66.67% auto}
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:0.6em 3.6em 0.6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba( 255,255,255,0.5 );border-radius:5px;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important; }.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB9ElEQVR4AZWRA3AYURQArxrVHtW2bdu2bdu2zdi2bdu2bWxs7zeehZaw4f70kbs+zI3e/nWK+RWx3aOFlrL56Sy5SxrruG69hlv6OyK+mz+8KDSXdXembj0ispT7tjs4ZTIbpYBvxGSGKzZTeFrb7W/meN002swFs0U8ttpHTkF2BvCqWQrW35929bTsKm5Zb+SEwWwcY8wAngB9m7Z+d+rIPZ/npdy12M5p47n8dXsCYAf0qPy06eGMdktuDu9Qf+JmKl3SWM91qzVcN9tAbEYkwMaq0tyb1m/To5kP170el/BK8/qa6sJr70ydf+T/Uu5ab+Oo/lS0AkUBpIFWlZ9WPhxpse/PHO7YbOOczjL0vZV2lNxPPtG73dYXM+xvm2znrOl83tidoqCwMBgYXsPFB0on5S6pr+eK5TKuW67lgvaKvF8mL1dtfTL32FHxRdyx3cQpg7m4x9sCXKkTIzA4LDH44zWdzaUf71hv5rTG4uyzcusybxSX7aThbMQ8XgCYAp3rzTTQOiIh9PNlzY3FSuZxrzjme1Y7uGS6kjsWO4jPjM4FVjRZsvD4kO9XtTZzQn82NyzWc0B7AmZh6gA/hOYSGhfw9YbOVnarj+S7800AL2BIsxUAbWNToj7bhBuQmZcOsFdoKUC74rGheCwXmqAIQTc9jQcrADIAAAAASUVORK5CYII=);background-image:url(/w/resources/src/mediawiki.action/images/green-checkmark.png?d94f1)!ie;background-position:left}.postedit-close{position:absolute;padding:0 0.8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:#000;text-shadow:0 0.0625em 0 #fff;text-decoration:none;opacity:0.2;filter:alpha( opacity=20 )}.postedit-close:hover{color:#000;text-decoration:none;opacity:0.4;filter:alpha( opacity=40 )}
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY( -20px )}100%{opacity:1;-webkit-transform:translateY( 0 )}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY( -20px )}100%{opacity:1;-moz-transform:translateY( 0 )}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY( -20px )}100%{opacity:1;-o-transform:translateY( 0 )}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY( -20px )}100%{opacity:1;transform:translateY( 0 )}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+.ext-quick-survey-panel,.ext-qs-loader-bar{width:auto;background-color:#eaecf0} .ext-qs-loader-bar{display:block;height:100px;margin-left:1.4em;clear:right;float:right;background-color:#eaecf0}.ext-qs-loader-bar.mw-ajax-loader{top:0}@media all and (min-width:720px){.ext-qs-loader-bar,.ext-quick-survey-panel{margin-left:1.4em;width:300px;clear:right;float:right}}</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{color:#000;text-decoration:none}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:#fff}.suggestions a.mw-searchSuggest-link .special-query{ overflow:hidden;-o-text-overflow:ellipsis; text-overflow:ellipsis;white-space:nowrap}
+#uls-settings-block{border-top:1px solid #c9c9c9;background:#f8f8f8;background:-webkit-gradient( linear,left top,left bottom,from( #fbfbfb ),to( #f0f0f0 ) );background:-webkit-linear-gradient( top,#fbfbfb,#f0f0f0 );background:-moz-linear-gradient( top,#fbfbfb,#f0f0f0 );background:-o-linear-gradient( top,#fbfbfb,#f0f0f0 );background:linear-gradient( #fbfbfb,#f0f0f0 );padding-left:10px;line-height:1.2em;border-radius:0 0 5px 5px}#uls-settings-block div.display-settings-block,#uls-settings-block div.input-settings-block{display:inline-block;margin:8px 15px;color:#565656}#uls-settings-block div.display-settings-block:hover,#uls-settings-block div.input-settings-block:hover{color:#252525}
+.mw-mmv-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;background-color:#000}body.mw-mmv-lightbox-open{overflow-y:auto;  }body.mw-mmv-lightbox-open #mw-page-base,body.mw-mmv-lightbox-open #mw-head-base,body.mw-mmv-lightbox-open #mw-navigation,body.mw-mmv-lightbox-open #content,body.mw-mmv-lightbox-open #footer,body.mw-mmv-lightbox-open #globalWrapper{ display:none}body.mw-mmv-lightbox-open > *{ display:none}body.mw-mmv-lightbox-open > .mw-mmv-overlay,body.mw-mmv-lightbox-open > .mw-mmv-wrapper{display:block}.mw-mmv-filepage-buttons{margin-top:5px}.mw-mmv-filepage-buttons .mw-mmv-view-expanded,.mw-mmv-filepage-buttons .mw-mmv-view-config{display:block;line-height:inherit}.mw-mmv-filepage-buttons .mw-mmv-view-expanded.mw-ui-icon:before{background-image:url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201024%20768%22%3E%0A%20%20%20%20%3Cg%20fill%3D%22%2372777d%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M851.2%2071.6L690.7%20232.1l-40.1-40.3-9.6%20164.8%20164.8-9.3-40.3-40.4L926%20146.4l58.5%2058.5L997.6%200%20792.7%2013.1%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M769.6%2089.3H611.9l70.9%2070.8%207.9%207.5m-47.1%20234.6l-51.2%203%203-51.2%209.4-164.4%205.8-100.3H26.4V768h883.1V387l-100.9%205.8-165%209.4zM813.9%20678H113.6l207.2-270.2%2031.5-12.9L548%20599.8l105.9-63.2%20159.8%20140.8.2.6zm95.6-291.9V228l-79.1%2078.9%207.8%207.9%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A)}.mw-mmv-filepage-buttons .mw-mmv-view-config.mw-ui-icon:before{background-image:url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201024%20768%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M897%20454.6V313.4L810.4%20299c-6.4-23.3-16-45.7-27.3-65.8l50.5-71.4-99.4-100.2-71.4%2050.5c-20.9-11.2-42.5-20.9-65.8-27.3L582.6-1H441.4L427%2085.6c-23.3%206.4-45.7%2016-65.8%2027.3l-71.4-50.5-100.3%2099.5%2050.5%2071.4c-11.2%2020.9-20.9%2042.5-27.3%2066.6L127%20313.4v141.2l85.8%2014.4c6.4%2023.3%2016%2045.7%2027.3%2066.6L189.6%20607l99.5%2099.5%2071.4-50.5c20.9%2011.2%2042.5%2020.9%2066.6%2027.3l14.4%2085.8h141.2l14.4-86.6c23.3-6.4%2045.7-16%2065.8-27.3l71.4%2050.5%2099.5-99.5-50.5-71.4c11.2-20.9%2020.9-42.5%2027.3-66.6l86.4-13.6zm-385%2077c-81.8%200-147.6-66.6-147.6-147.6%200-81.8%2066.6-147.6%20147.6-147.6S659.6%20302.2%20659.6%20384%20593.8%20531.6%20512%20531.6z%22%20fill%3D%22%2372777d%22%2F%3E%0A%3C%2Fsvg%3E%0A);opacity:0.75}.mw-mmv-filepage-buttons .mw-mmv-view-config.mw-ui-icon:before:hover{opacity:1}
+.ve-activated #toc,.ve-activated #siteNotice,.ve-activated .mw-indicators,.ve-activated #t-print,.ve-activated #t-permalink,.ve-activated #p-coll-print_export,.ve-activated #t-cite,.ve-deactivating .ve-ui-surface,.ve-active .ve-init-mw-desktopArticleTarget-editableContent{display:none} .ve-activating .ve-ui-surface{height:0;padding:0 !important; overflow:hidden} .ve-loading #content > :not( .ve-init-mw-desktopArticleTarget-loading-overlay ), .ve-activated .ve-init-mw-desktopArticleTarget-uneditableContent{ pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;opacity:0.5}.ve-activated #catlinks{cursor:pointer}.ve-activated #catlinks a{opacity:1} .ve-activated #content{position:relative} .ve-init-mw-desktopArticleTarget-loading-overlay{position:absolute;left:0;right:0;z-index:1;margin-top:-0.5em}.ve-init-mw-desktopArticleTarget-progress{height:1em;overflow:hidden;margin:0 25%}.ve-init-mw-desktopArticleTarget-progress-bar{height:1em;width:0} .mw-editsection{white-space:nowrap; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .ve-init-mw-desktopArticleTarget-progress{height:0.75em;border:1px solid #36c;background:#fff;border-radius:2px;box-shadow:0 0.1em 0 0 rgba( 0,0,0,0.15 )}.ve-init-mw-desktopArticleTarget-progress-bar{height:0.75em;background:#36c}</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Shellsort%20-%20Wikipedia_files/load_002.css">
+<meta name="generator" content="MediaWiki 1.29.0-wmf.21">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/d/d8/Sorting_shellsort_anim.gif">
+<link rel="alternate" href="android-app://org.wikipedia/http/en.m.wikipedia.org/wiki/Shellsort">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit">
+<link rel="edit" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit">
+<link rel="apple-touch-icon" href="https://en.wikipedia.org/static/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="https://en.wikipedia.org/static/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="https://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Shellsort">
+<link rel="dns-prefetch" href="https://login.wikimedia.org/">
+<link rel="dns-prefetch" href="https://meta.wikimedia.org/">
+<script src="Shellsort%20-%20Wikipedia_files/load.php"></script><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Shellsort rootpage-Shellsort skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice" class="mw-body-content"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<div class="mw-indicators mw-body-content">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Shellsort</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><table class="infobox" style="width:22em">
+<caption>Shellsort</caption>
+<tbody><tr>
+<td colspan="2" style="text-align:center"><a href="https://en.wikipedia.org/wiki/File:Sorting_shellsort_anim.gif" class="image" title="Step-by-step visualisation of Shellsort"><img alt="Step-by-step visualisation of Shellsort" src="Shellsort%20-%20Wikipedia_files/Sorting_shellsort_anim.gif" data-file-width="277" data-file-height="344" width="277" height="344"></a><br>
+<small>Shellsort with gaps 23, 10, 4, 1 in action.</small></td>
+</tr>
+<tr>
+<th scope="row">Class</th>
+<td><a href="https://en.wikipedia.org/wiki/Sorting_algorithm" title="Sorting algorithm">Sorting algorithm</a></td>
+</tr>
+<tr>
+<th scope="row">Data structure</th>
+<td><a href="https://en.wikipedia.org/wiki/Array_data_structure" title="Array data structure">Array</a></td>
+</tr>
+<tr>
+<th scope="row"><a href="https://en.wikipedia.org/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst-case performance</a></th>
+<td>O(<i>n</i>log<sub>2</sub> <sup>2</sup><i>n</i>) <sup id="cite_ref-Pratt_1-0" class="reference"><a href="#cite_note-Pratt-1">[1]</a></sup></td>
+</tr>
+<tr>
+<th scope="row"><a href="https://en.wikipedia.org/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Best-case performance</a></th>
+<td>O(<i>n</i> log <i>n</i>)<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup></td>
+</tr>
+<tr>
+<th scope="row"><a href="https://en.wikipedia.org/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Average performance</a></th>
+<td>depends on gap sequence</td>
+</tr>
+<tr>
+<th scope="row"><a href="https://en.wikipedia.org/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst-case space complexity</a></th>
+<td>О(n) total, O(1) auxiliary</td>
+</tr>
+</tbody></table>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="https://en.wikipedia.org/wiki/File:Shell_sorting_algorithm_color_bars.svg" class="image"><img alt="Vectorgraphic diagram depicting the step-by-step process." src="Shellsort%20-%20Wikipedia_files/220px-Shell_sorting_algorithm_color_bars.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Shell_sorting_algorithm_color_bars.svg/330px-Shell_sorting_algorithm_color_bars.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Shell_sorting_algorithm_color_bars.svg/440px-Shell_sorting_algorithm_color_bars.svg.png 2x" data-file-width="512" data-file-height="461" width="220" height="198"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="https://en.wikipedia.org/wiki/File:Shell_sorting_algorithm_color_bars.svg" class="internal" title="Enlarge"></a></div>
+The step-by-step process of replacing pairs of items during the shell sorting algorithm.</div>
+</div>
+</div>
+<p><b>Shellsort</b>, also known as <b>Shell sort</b> or <b>Shell's method</b>, is an in-place <a href="https://en.wikipedia.org/wiki/Comparison_sort" title="Comparison sort">comparison sort</a>. It can be seen as either a generalization of sorting by exchange (<a href="https://en.wikipedia.org/wiki/Bubble_sort" title="Bubble sort">bubble sort</a>) or sorting by insertion (<a href="https://en.wikipedia.org/wiki/Insertion_sort" title="Insertion sort">insertion sort</a>).<sup id="cite_ref-Knuth_3-0" class="reference"><a href="#cite_note-Knuth-3">[3]</a></sup>
+ The method starts by sorting pairs of elements far apart from each 
+other, then progressively reducing the gap between elements to be 
+compared. Starting with far apart elements, it can move some 
+out-of-place elements into position faster than a simple nearest 
+neighbor exchange. <a href="https://en.wikipedia.org/wiki/Donald_Shell" title="Donald Shell">Donald Shell</a> published the first version of this sort in 1959.<sup id="cite_ref-Shell_4-0" class="reference"><a href="#cite_note-Shell-4">[4]</a></sup><sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup> The running time of Shellsort is heavily dependent on the gap sequence it uses. For many practical variants, determining their <a href="https://en.wikipedia.org/wiki/Time_complexity" title="Time complexity">time complexity</a> remains an <a href="https://en.wikipedia.org/wiki/Open_problem" title="Open problem">open problem</a>.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle" class="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a role="button" tabindex="0" class="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Pseudocode"><span class="tocnumber">2</span> <span class="toctext">Pseudocode</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Gap_sequences"><span class="tocnumber">3</span> <span class="toctext">Gap sequences</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Computational_complexity"><span class="tocnumber">4</span> <span class="toctext">Computational complexity</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Applications"><span class="tocnumber">5</span> <span class="toctext">Applications</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Bibliography"><span class="tocnumber">8</span> <span class="toctext">Bibliography</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#External_links"><span class="tocnumber">9</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Description">Description</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=1" title="Edit section: Description">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Shellsort is a generalization of <a href="https://en.wikipedia.org/wiki/Insertion_sort" title="Insertion sort">insertion sort</a>
+ that allows the exchange of items that are far apart. The idea is to 
+arrange the list of elements so that, starting anywhere, considering 
+every <i>h</i>th element gives a sorted list. Such a list is said to be <i>h</i>-sorted. Equivalently, it can be thought of as <i>h</i> interleaved lists, each individually sorted.<sup id="cite_ref-Sedgewick_6-0" class="reference"><a href="#cite_note-Sedgewick-6">[6]</a></sup> Beginning with large values of <i>h</i>,
+ this rearrangement allows elements to move long distances in the 
+original list, reducing large amounts of disorder quickly, and leaving 
+less work for smaller <i>h</i>-sort steps to do.<sup id="cite_ref-KR_7-0" class="reference"><a href="#cite_note-KR-7">[7]</a></sup> If the file is then <i>k-sorted</i> for some smaller integer <i>k</i>, then the file remains <i>h</i>-sorted. Following this idea for a decreasing sequence of <i>h</i> values ending in 1 is guaranteed to leave a sorted list in the end.<sup id="cite_ref-Sedgewick_6-1" class="reference"><a href="#cite_note-Sedgewick-6">[6]</a></sup></p>
+<p>An example run of Shellsort with gaps 5, 3 and 1 is shown below.</p>
+<table class="wikitable" style="text-align:center">
+<tbody><tr>
+<td></td>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>1</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>2</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>3</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>4</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>5</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>6</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>7</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>8</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>9</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>10</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>11</sub></th>
+<th><span class="texhtml mvar" style="font-style:italic;">a</span><sub>12</sub></th>
+</tr>
+<tr>
+<th>Input data</th>
+<td>62</td>
+<td>83</td>
+<td>18</td>
+<td>53</td>
+<td>07</td>
+<td>17</td>
+<td>95</td>
+<td>86</td>
+<td>47</td>
+<td>69</td>
+<td>25</td>
+<td>28</td>
+</tr>
+<tr>
+<th>After 5-sorting</th>
+<td>17</td>
+<td>28</td>
+<td>18</td>
+<td>47</td>
+<td>07</td>
+<td bgcolor="lightcyan">25</td>
+<td bgcolor="lightcyan">83</td>
+<td bgcolor="lightcyan">86</td>
+<td bgcolor="lightcyan">53</td>
+<td bgcolor="lightcyan">69</td>
+<td>62</td>
+<td>95</td>
+</tr>
+<tr>
+<th>After 3-sorting</th>
+<td>17</td>
+<td>07</td>
+<td>18</td>
+<td bgcolor="lightcyan">47</td>
+<td bgcolor="lightcyan">28</td>
+<td bgcolor="lightcyan">25</td>
+<td>69</td>
+<td>62</td>
+<td>53</td>
+<td bgcolor="lightcyan">83</td>
+<td bgcolor="lightcyan">86</td>
+<td bgcolor="lightcyan">95</td>
+</tr>
+<tr>
+<th>After 1-sorting</th>
+<td>07</td>
+<td>17</td>
+<td>18</td>
+<td>25</td>
+<td>28</td>
+<td>47</td>
+<td>53</td>
+<td>62</td>
+<td>69</td>
+<td>83</td>
+<td>86</td>
+<td>95</td>
+</tr>
+</tbody></table>
+<p>The first pass, 5-sorting, performs insertion sort on five separate subarrays (<i>a</i><sub>1</sub>, <i>a</i><sub>6</sub>, <i>a</i><sub>11</sub>), (<i>a</i><sub>2</sub>, <i>a</i><sub>7</sub>, <i>a</i><sub>12</sub>), (<i>a</i><sub>3</sub>, <i>a</i><sub>8</sub>), (<i>a</i><sub>4</sub>, <i>a</i><sub>9</sub>), (<i>a</i><sub>5</sub>, <i>a</i><sub>10</sub>). For instance, it changes the subarray (<i>a</i><sub>1</sub>, <i>a</i><sub>6</sub>, <i>a</i><sub>11</sub>) from (62, 17, 25) to (17, 25, 62). The next pass, 3-sorting, performs insertion sort on the three subarrays (<i>a</i><sub>1</sub>, <i>a</i><sub>4</sub>, <i>a</i><sub>7</sub>, <i>a</i><sub>10</sub>), (<i>a</i><sub>2</sub>, <i>a</i><sub>5</sub>, <i>a</i><sub>8</sub>, <i>a</i><sub>11</sub>), (<i>a</i><sub>3</sub>, <i>a</i><sub>6</sub>, <i>a</i><sub>9</sub>, <i>a</i><sub>12</sub>). The last pass, 1-sorting, is an ordinary insertion sort of the entire array (<i>a</i><sub>1</sub>,..., <i>a</i><sub>12</sub>).</p>
+<p>As the example illustrates, the subarrays that Shellsort operates on 
+are initially short; later they are longer but almost ordered. In both 
+cases insertion sort works efficiently.</p>
+<p>Shellsort is <a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability" title="Sorting algorithm">unstable</a>: it may change the relative order of elements with equal values. It is an <a href="https://en.wikipedia.org/wiki/Adaptive_sort" title="Adaptive sort">adaptive sorting algorithm</a> in that it executes faster when the input is partially sorted.</p>
+<h2><span class="mw-headline" id="Pseudocode">Pseudocode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=2" title="Edit section: Pseudocode">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Using Marcin Ciura's gap sequence, with an inner insertion sort.</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr">
+<pre><span class="cp"># Sort an array a[0...n-1].</span>
+<span class="n">gaps</span> <span class="o">=</span> <span class="p">[</span><span class="mi">701</span><span class="p">,</span> <span class="mi">301</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="cp"># Start with the largest gap and work down to a gap of 1</span>
+<span class="n">foreach</span> <span class="p">(</span><span class="n">gap</span> <span class="n">in</span> <span class="n">gaps</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cp"># Do a gapped insertion sort for this gap size.</span>
+    <span class="cp"># The first gap elements a[0..gap-1] are already in gapped order</span>
+    <span class="cp"># keep adding one more element until the entire array is gap sorted</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">gap</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="cp"># add a[i] to the elements that have been gap sorted</span>
+        <span class="cp"># save a[i] in temp and make a hole at position i</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="cp"># shift earlier gap-sorted elements up until the correct location for a[i] is found</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">gap</span> <span class="n">and</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">gap</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temp</span><span class="p">;</span> <span class="n">j</span> <span class="o">-=</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">gap</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="cp"># put temp (the original a[i]) in its correct location</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2><span class="mw-headline" id="Gap_sequences">Gap sequences</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=3" title="Edit section: Gap sequences">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The question of deciding which gap sequence to use is difficult. 
+Every gap sequence that contains 1 yields a correct sort (as this makes 
+the final pass an ordinary insertion sort); however, the properties of 
+thus obtained versions of Shellsort may be very different.</p>
+<p>The table below compares most proposed gap sequences published so 
+far. Some of them have decreasing elements that depend on the size of 
+the sorted array (<i>N</i>). Others are increasing infinite sequences, whose elements less than <i>N</i> should be used in reverse order.</p>
+<dl>
+<dd>
+<table class="wikitable">
+<tbody><tr style="background-color: #efefef;">
+<th>General term (<i>k</i> ≥ 1)</th>
+<th>Concrete gaps</th>
+<th>Worst-case<br>
+time complexity</th>
+<th>Author and year of publication</th>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⌊</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mi>N</mi>
+              <msup>
+                <mn>2</mn>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>k</mi>
+                </mrow>
+              </msup>
+            </mfrac>
+          </mrow>
+          <mo>⌋</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\lfloor {\frac {N}{2^{k}}}\right\rfloor }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/3dc3cd67db2f8508fe45b304ee2cb08e76c49fb5.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:5.837ex; height:6.176ex;" alt="{\displaystyle \left\lfloor {\frac {N}{2^{k}}}\right\rfloor }"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⌊</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mi>N</mi>
+              <mn>2</mn>
+            </mfrac>
+          </mrow>
+          <mo>⌋</mo>
+        </mrow>
+        <mo>,</mo>
+        <mrow>
+          <mo>⌊</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mi>N</mi>
+              <mn>4</mn>
+            </mfrac>
+          </mrow>
+          <mo>⌋</mo>
+        </mrow>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\lfloor {\frac {N}{2}}\right\rfloor ,\left\lfloor {\frac {N}{4}}\right\rfloor ,\ldots ,1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/9173fdcf251f9128282e5a539b9f220add36c404.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:19.484ex; height:6.176ex;" alt="{\displaystyle \left\lfloor {\frac {N}{2}}\right\rfloor ,\left\lfloor {\frac {N}{4}}\right\rfloor ,\ldots ,1}"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi mathvariant="normal">Θ<!-- Θ --></mi>
+        <mo stretchy="false">(</mo>
+        <msup>
+          <mi>N</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>2</mn>
+          </mrow>
+        </msup>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Theta (N^{2})}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/70e81803b14ebe763fa5b03f9fecad1ec47b36ec.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width:6.844ex; height:3.176ex;" alt="\Theta(N^2)"></span> [e.g. when <i>N</i> = 2<sup><i>p</i></sup>]</td>
+<td><a href="https://en.wikipedia.org/wiki/Donald_Shell" title="Donald Shell">Shell</a>, 1959<sup id="cite_ref-Shell_4-1" class="reference"><a href="#cite_note-Shell-4">[4]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>2</mn>
+        <mrow>
+          <mo>⌊</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mi>N</mi>
+              <msup>
+                <mn>2</mn>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>k</mi>
+                  <mo>+</mo>
+                  <mn>1</mn>
+                </mrow>
+              </msup>
+            </mfrac>
+          </mrow>
+          <mo>⌋</mo>
+        </mrow>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 2\left\lfloor {\frac {N}{2^{k+1}}}\right\rfloor +1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/cf205f2f5737df0d4cf123eab8a4ddecb949c0c2.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:13.536ex; height:6.176ex;" alt="{\displaystyle 2\left\lfloor {\frac {N}{2^{k+1}}}\right\rfloor +1}"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>2</mn>
+        <mrow>
+          <mo>⌊</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mi>N</mi>
+              <mn>4</mn>
+            </mfrac>
+          </mrow>
+          <mo>⌋</mo>
+        </mrow>
+        <mo>+</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <mn>3</mn>
+        <mo>,</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 2\left\lfloor {\frac {N}{4}}\right\rfloor +1,\ldots ,3,1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/3003d2146e5de7dd4eff687215ed677a0d060e3c.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:19.825ex; height:6.176ex;" alt="2 \left\lfloor\frac{N}{4}\right\rfloor + 1, \ldots, 3, 1"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi mathvariant="normal">Θ<!-- Θ --></mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>N</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>3</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Theta \left(N^{3/2}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/7e579850d2240893c0010836f776ae9913631c10.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:9.856ex; height:4.843ex;" alt="{\displaystyle \Theta \left(N^{3/2}\right)}"></span></td>
+<td>Frank &amp; Lazarus, 1960<sup id="cite_ref-8" class="reference"><a href="#cite_note-8">[8]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msup>
+          <mn>2</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msup>
+        <mo>−<!-- − --></mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 2^{k}-1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/76af5b5bc7d056faef7eef0c6efeea3a16adc156.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width:6.293ex; height:2.676ex;" alt="2^k - 1"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>3</mn>
+        <mo>,</mo>
+        <mn>7</mn>
+        <mo>,</mo>
+        <mn>15</mn>
+        <mo>,</mo>
+        <mn>31</mn>
+        <mo>,</mo>
+        <mn>63</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,3,7,15,31,63,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/d13e98e496662ed1fbbd6e176687a577b648ffb5.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:19.556ex; height:2.509ex;" alt="1, 3, 7, 15, 31, 63, \ldots"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi mathvariant="normal">Θ<!-- Θ --></mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>N</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>3</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Theta \left(N^{3/2}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/7e579850d2240893c0010836f776ae9913631c10.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:9.856ex; height:4.843ex;" alt="{\displaystyle \Theta \left(N^{3/2}\right)}"></span></td>
+<td><a href="https://en.wikipedia.org/wiki/Thomas_N._Hibbard" title="Thomas N. Hibbard">Hibbard</a>, 1963<sup id="cite_ref-9" class="reference"><a href="#cite_note-9">[9]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msup>
+          <mn>2</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msup>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 2^{k}+1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/37106849bec61399f55dd477a364a2b2bfbb8bf7.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.505ex; width:6.293ex; height:2.843ex;" alt="2^k + 1"></span>, prefixed with 1</td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>3</mn>
+        <mo>,</mo>
+        <mn>5</mn>
+        <mo>,</mo>
+        <mn>9</mn>
+        <mo>,</mo>
+        <mn>17</mn>
+        <mo>,</mo>
+        <mn>33</mn>
+        <mo>,</mo>
+        <mn>65</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,3,5,9,17,33,65,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/a0a37b1bef40139f986e49694b16c60937efec16.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:21.773ex; height:2.509ex;" alt="1, 3, 5, 9, 17, 33, 65, \ldots"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi mathvariant="normal">Θ<!-- Θ --></mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>N</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>3</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Theta \left(N^{3/2}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/7e579850d2240893c0010836f776ae9913631c10.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:9.856ex; height:4.843ex;" alt="{\displaystyle \Theta \left(N^{3/2}\right)}"></span></td>
+<td>Papernov &amp; Stasevich, 1965<sup id="cite_ref-10" class="reference"><a href="#cite_note-10">[10]</a></sup></td>
+</tr>
+<tr>
+<td>Successive numbers of the form <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msup>
+          <mn>2</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>p</mi>
+          </mrow>
+        </msup>
+        <msup>
+          <mn>3</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>q</mi>
+          </mrow>
+        </msup>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 2^{p}3^{q}}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/3d62f821aeb7b766d489e907de44a775d707d16c.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width:4.408ex; height:2.343ex;" alt="2^p 3^q"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>2</mn>
+        <mo>,</mo>
+        <mn>3</mn>
+        <mo>,</mo>
+        <mn>4</mn>
+        <mo>,</mo>
+        <mn>6</mn>
+        <mo>,</mo>
+        <mn>8</mn>
+        <mo>,</mo>
+        <mn>9</mn>
+        <mo>,</mo>
+        <mn>12</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,2,3,4,6,8,9,12,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/87f9ab30497438e80f5056d0c30b57a2eaecf999.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:21.645ex; height:2.509ex;" alt="1, 2, 3, 4, 6, 8, 9, 12, \ldots"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi mathvariant="normal">Θ<!-- Θ --></mi>
+        <mrow>
+          <mo>(</mo>
+          <mi>N</mi>
+          <msup>
+            <mi>log</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>⁡<!-- ⁡ --></mo>
+          <mi>N</mi>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Theta \left(N\log ^{2}N\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/b46ef67883194d3427dc12ed2a6c245ab0cf310e.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.171ex; width:13.343ex; height:3.509ex;" alt="{\displaystyle \Theta \left(N\log ^{2}N\right)}"></span></td>
+<td><a href="https://en.wikipedia.org/wiki/Vaughan_Ronald_Pratt" class="mw-redirect" title="Vaughan Ronald Pratt">Pratt</a>, 1971<sup id="cite_ref-Pratt_1-1" class="reference"><a href="#cite_note-Pratt-1">[1]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mrow>
+              <msup>
+                <mn>3</mn>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>k</mi>
+                </mrow>
+              </msup>
+              <mo>−<!-- − --></mo>
+              <mn>1</mn>
+            </mrow>
+            <mn>2</mn>
+          </mfrac>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\frac {3^{k}-1}{2}}}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/d82965359bcd9f82e009fff9a888bfc7866559a1.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:7.129ex; height:5.676ex;" alt="{\displaystyle {\frac {3^{k}-1}{2}}}"></span>, not greater than <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⌈</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mi>N</mi>
+              <mn>3</mn>
+            </mfrac>
+          </mrow>
+          <mo>⌉</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\lceil {\frac {N}{3}}\right\rceil }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/0b7e8fb0d1486a1c7e288015fe086b367c446be3.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:5.642ex; height:6.176ex;" alt="{\displaystyle \left\lceil {\frac {N}{3}}\right\rceil }"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>4</mn>
+        <mo>,</mo>
+        <mn>13</mn>
+        <mo>,</mo>
+        <mn>40</mn>
+        <mo>,</mo>
+        <mn>121</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,4,13,40,121,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/bb9d9cfb1deb9889b85ab9cd0f7ab314faff317a.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:18.512ex; height:2.509ex;" alt="1, 4, 13, 40, 121, \ldots "></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi mathvariant="normal">Θ<!-- Θ --></mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>N</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>3</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \Theta \left(N^{3/2}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/7e579850d2240893c0010836f776ae9913631c10.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:9.856ex; height:4.843ex;" alt="{\displaystyle \Theta \left(N^{3/2}\right)}"></span></td>
+<td><a href="https://en.wikipedia.org/wiki/Vaughan_Ronald_Pratt" class="mw-redirect" title="Vaughan Ronald Pratt">Pratt</a>, 1971<sup id="cite_ref-Pratt_1-2" class="reference"><a href="#cite_note-Pratt-1">[1]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mtable columnalign="right left right left right left right left right left right left" rowspacing="3pt" columnspacing="0em 2em 0em 2em 0em 2em 0em 2em 0em 2em 0em" displaystyle="true">
+            <mtr>
+              <mtd></mtd>
+              <mtd>
+                <mi></mi>
+                <munder>
+                  <mo movablelimits="false">∏<!-- ∏ --></mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>I</mi>
+                  </mrow>
+                </munder>
+                <msub>
+                  <mi>a</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>q</mi>
+                  </mrow>
+                </msub>
+                <mo>,</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mtext>where</mtext>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <msub>
+                  <mi>a</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>q</mi>
+                  </mrow>
+                </msub>
+                <mo>=</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+
+                </mrow>
+              </mtd>
+              <mtd>
+                <mi></mi>
+                <mo movablelimits="true" form="prefix">min</mo>
+                <mrow>
+                  <mo>{</mo>
+                  <mi>n</mi>
+                  <mo>∈<!-- ∈ --></mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi mathvariant="double-struck">N</mi>
+                  </mrow>
+                  <mo>:<!-- : --></mo>
+                  <mi>n</mi>
+                  <mo>≥<!-- ≥ --></mo>
+                  <msup>
+                    <mrow>
+                      <mo>(</mo>
+                      <mrow class="MJX-TeXAtom-ORD">
+                        <mfrac>
+                          <mn>5</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                      </mrow>
+                      <mo>)</mo>
+                    </mrow>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>q</mi>
+                      <mo>+</mo>
+                      <mn>1</mn>
+                    </mrow>
+                  </msup>
+                  <mo>,</mo>
+                  <mi mathvariant="normal">∀<!-- ∀ --></mi>
+                  <mi>p</mi>
+                  <mo>:<!-- : --></mo>
+                  <mn>0</mn>
+                  <mo>≤<!-- ≤ --></mo>
+                  <mi>p</mi>
+                  <mo>&lt;</mo>
+                  <mi>q</mi>
+                  <mo stretchy="false">⇒<!-- ⇒ --></mo>
+                  <mo movablelimits="true" form="prefix">gcd</mo>
+                  <mo stretchy="false">(</mo>
+                  <msub>
+                    <mi>a</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>p</mi>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <mi>n</mi>
+                  <mo stretchy="false">)</mo>
+                  <mo>=</mo>
+                  <mn>1</mn>
+                  <mo>}</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <mi>I</mi>
+                <mo>=</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mo>{</mo>
+                  <mn>0</mn>
+                  <mo>≤<!-- ≤ --></mo>
+                  <mi>q</mi>
+                  <mo>&lt;</mo>
+                  <mi>r</mi>
+                  <mo>∣<!-- ∣ --></mo>
+                  <mi>q</mi>
+                  <mo>≠<!-- ≠ --></mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mfrac>
+                      <mn>1</mn>
+                      <mn>2</mn>
+                    </mfrac>
+                  </mrow>
+                  <mrow>
+                    <mo>(</mo>
+                    <msup>
+                      <mi>r</mi>
+                      <mrow class="MJX-TeXAtom-ORD">
+                        <mn>2</mn>
+                      </mrow>
+                    </msup>
+                    <mo>+</mo>
+                    <mi>r</mi>
+                    <mo>)</mo>
+                  </mrow>
+                  <mo>−<!-- − --></mo>
+                  <mi>k</mi>
+                  <mo>}</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <mi>r</mi>
+                <mo>=</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mo>⌊</mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <msqrt>
+                      <mn>2</mn>
+                      <mi>k</mi>
+                      <mo>+</mo>
+                      <mrow class="MJX-TeXAtom-ORD">
+                        <msqrt>
+                          <mn>2</mn>
+                          <mi>k</mi>
+                        </msqrt>
+                      </mrow>
+                    </msqrt>
+                  </mrow>
+                  <mo>⌋</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 
+{\begin{aligned}&amp;\prod \limits 
+_{I}a_{q},{\hbox{where}}\\a_{q}={}&amp;\min \left\{n\in \mathbb {N} 
+\colon n\geq \left({\frac {5}{2}}\right)^{q+1},\forall p\colon 0\leq 
+p&lt;q\Rightarrow \gcd(a_{p},n)=1\right\}\\I={}&amp;\left\{0\leq 
+q&lt;r\mid q\neq {\frac 
+{1}{2}}\left(r^{2}+r\right)-k\right\}\\r={}&amp;\left\lfloor {\sqrt 
+{2k+{\sqrt {2k}}}}\right\rfloor \end{aligned}}}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/b3e30081177cef0a813a4cf96ca54bf5b5e866bb.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -12.338ex; width:66.844ex; height:25.843ex;" alt="{\displaystyle {\begin{aligned}&amp;\prod \limits _{I}a_{q},{\hbox{where}}\\a_{q}={}&amp;\min \left\{n\in \mathbb {N} \colon n\geq \left({\frac {5}{2}}\right)^{q+1},\forall p\colon 0\leq p&lt;q\Rightarrow \gcd(a_{p},n)=1\right\}\\I={}&amp;\left\{0\leq q&lt;r\mid q\neq {\frac {1}{2}}\left(r^{2}+r\right)-k\right\}\\r={}&amp;\left\lfloor {\sqrt {2k+{\sqrt {2k}}}}\right\rfloor \end{aligned}}}"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>3</mn>
+        <mo>,</mo>
+        <mn>7</mn>
+        <mo>,</mo>
+        <mn>21</mn>
+        <mo>,</mo>
+        <mn>48</mn>
+        <mo>,</mo>
+        <mn>112</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,3,7,21,48,112,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/fbadcd24173165b30108a9a77d0d6d3cfeef5040.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:20.729ex; height:2.509ex;" alt="1, 3, 7, 21, 48, 112, \ldots"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>O</mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>N</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>1</mn>
+              <mo>+</mo>
+              <mrow class="MJX-TeXAtom-ORD">
+                <msqrt>
+                  <mfrac>
+                    <mrow>
+                      <mn>8</mn>
+                      <mi>ln</mi>
+                      <mo>⁡<!-- ⁡ --></mo>
+                      <mrow>
+                        <mo>(</mo>
+                        <mn>5</mn>
+                        <mrow class="MJX-TeXAtom-ORD">
+                          <mo>/</mo>
+                        </mrow>
+                        <mn>2</mn>
+                        <mo>)</mo>
+                      </mrow>
+                    </mrow>
+                    <mrow>
+                      <mi>ln</mi>
+                      <mo>⁡<!-- ⁡ --></mo>
+                      <mo stretchy="false">(</mo>
+                      <mi>N</mi>
+                      <mo stretchy="false">)</mo>
+                    </mrow>
+                  </mfrac>
+                </msqrt>
+              </mrow>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle O\left(N^{1+{\sqrt {\frac {8\ln \left(5/2\right)}{\ln(N)}}}}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/7839941e182c309f0a2d8282b1363fec97023ad1.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.171ex; width:18.097ex; height:7.676ex;" alt="{\displaystyle O\left(N^{1+{\sqrt {\frac {8\ln \left(5/2\right)}{\ln(N)}}}}\right)}"></span></td>
+<td>Incerpi &amp; <a href="https://en.wikipedia.org/wiki/Robert_Sedgewick_%28computer_scientist%29" title="Robert Sedgewick (computer scientist)">Sedgewick</a>, 1985,<sup id="cite_ref-11" class="reference"><a href="#cite_note-11">[11]</a></sup> <a href="https://en.wikipedia.org/wiki/Donald_Knuth" title="Donald Knuth">Knuth</a><sup id="cite_ref-Knuth_3-1" class="reference"><a href="#cite_note-Knuth-3">[3]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msup>
+          <mn>4</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msup>
+        <mo>+</mo>
+        <mn>3</mn>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msup>
+          <mn>2</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+            <mo>−<!-- − --></mo>
+            <mn>1</mn>
+          </mrow>
+        </msup>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 4^{k}+3\cdot 2^{k-1}+1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/77e826cece8dd6bc25f1c32bad9bfe4ab07beb2e.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.505ex; width:16.39ex; height:2.843ex;" alt="{\displaystyle 4^{k}+3\cdot 2^{k-1}+1}"></span>, prefixed with 1</td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>8</mn>
+        <mo>,</mo>
+        <mn>23</mn>
+        <mo>,</mo>
+        <mn>77</mn>
+        <mo>,</mo>
+        <mn>281</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,8,23,77,281,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/cff87875198bad2c0d005c801b2bf39f51f67c59.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:18.512ex; height:2.509ex;" alt="1, 8, 23, 77, 281, \ldots"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>O</mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>N</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>4</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>3</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle O\left(N^{4/3}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/5412e8235deb32797138769681626d468ba4dfa9.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:9.821ex; height:4.843ex;" alt="{\displaystyle O\left(N^{4/3}\right)}"></span></td>
+<td>Sedgewick, 1986<sup id="cite_ref-Sedgewick_6-2" class="reference"><a href="#cite_note-Sedgewick-6">[6]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>9</mn>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mn>4</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>k</mi>
+              <mo>−<!-- − --></mo>
+              <mn>1</mn>
+            </mrow>
+          </msup>
+          <mo>−<!-- − --></mo>
+          <msup>
+            <mn>2</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>k</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+        <mo>+</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+        <msup>
+          <mn>4</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+            <mo>+</mo>
+            <mn>1</mn>
+          </mrow>
+        </msup>
+        <mo>−<!-- − --></mo>
+        <mn>6</mn>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msup>
+          <mn>2</mn>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mo stretchy="false">(</mo>
+            <mi>k</mi>
+            <mo>+</mo>
+            <mn>1</mn>
+            <mo stretchy="false">)</mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mo>/</mo>
+            </mrow>
+            <mn>2</mn>
+          </mrow>
+        </msup>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 9\left(4^{k-1}-2^{k/2}\right)+1,4^{k+1}-6\cdot 2^{(k+1)/2}+1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/92d59655776f26fd2d1abacace30d51c282d5e5b.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:42.046ex; height:4.843ex;" alt="{\displaystyle 9\left(4^{k-1}-2^{k/2}\right)+1,4^{k+1}-6\cdot 2^{(k+1)/2}+1}"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>5</mn>
+        <mo>,</mo>
+        <mn>19</mn>
+        <mo>,</mo>
+        <mn>41</mn>
+        <mo>,</mo>
+        <mn>109</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,5,19,41,109,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/0fd394c03cedbf8e6c926f7c5e0638a27d8dd080.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:18.512ex; height:2.509ex;" alt="1, 5, 19, 41, 109, \ldots"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>O</mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>N</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>4</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>3</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle O\left(N^{4/3}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/5412e8235deb32797138769681626d468ba4dfa9.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.838ex; width:9.821ex; height:4.843ex;" alt="{\displaystyle O\left(N^{4/3}\right)}"></span></td>
+<td>Sedgewick, 1986<sup id="cite_ref-Sedgewick2_12-0" class="reference"><a href="#cite_note-Sedgewick2-12">[12]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mo movablelimits="true" form="prefix">max</mo>
+        <mrow>
+          <mo>{</mo>
+          <mrow>
+            <mo>⌊</mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mfrac>
+                <mrow>
+                  <mn>5</mn>
+                  <msub>
+                    <mi>h</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>k</mi>
+                      <mo>−<!-- − --></mo>
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                </mrow>
+                <mn>11</mn>
+              </mfrac>
+            </mrow>
+            <mo>⌋</mo>
+          </mrow>
+          <mo>,</mo>
+          <mn>1</mn>
+          <mo>}</mo>
+        </mrow>
+        <mo>,</mo>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>0</mn>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mi>N</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle h_{k}=\max \left\{\left\lfloor {\frac {5h_{k-1}}{11}}\right\rfloor ,1\right\},h_{0}=N}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/70dc459fe2a9efbc8b9cc9bb405f7cc61e77e050.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:34.737ex; height:6.176ex;" alt="{\displaystyle h_{k}=\max \left\{\left\lfloor {\frac {5h_{k-1}}{11}}\right\rfloor ,1\right\},h_{0}=N}"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⌊</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mrow>
+                <mn>5</mn>
+                <mi>N</mi>
+              </mrow>
+              <mn>11</mn>
+            </mfrac>
+          </mrow>
+          <mo>⌋</mo>
+        </mrow>
+        <mo>,</mo>
+        <mrow>
+          <mo>⌊</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mn>5</mn>
+              <mn>11</mn>
+            </mfrac>
+          </mrow>
+          <mrow>
+            <mo>⌊</mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mfrac>
+                <mrow>
+                  <mn>5</mn>
+                  <mi>N</mi>
+                </mrow>
+                <mn>11</mn>
+              </mfrac>
+            </mrow>
+            <mo>⌋</mo>
+          </mrow>
+          <mo>⌋</mo>
+        </mrow>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\lfloor
+ {\frac {5N}{11}}\right\rfloor ,\left\lfloor {\frac {5}{11}}\left\lfloor
+ {\frac {5N}{11}}\right\rfloor \right\rfloor ,\ldots ,1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/05624b8a927cd92abdb14346a3c8932a85c14463.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:28.13ex; height:6.176ex;" alt="\left\lfloor \frac{5N}{11} \right\rfloor, \left\lfloor \frac{5}{11}\left\lfloor \frac{5N}{11} \right\rfloor\right\rfloor, \ldots, 1"></span></td>
+<td style="background: #ececec; color: #2C2C2C; font-size: smaller; vertical-align: middle; text-align: center;" class="unknown table-unknown">Unknown</td>
+<td><a href="https://en.wikipedia.org/wiki/Gaston_Gonnet" title="Gaston Gonnet">Gonnet</a> &amp; <a href="https://en.wikipedia.org/wiki/Ricardo_Baeza-Yates" title="Ricardo Baeza-Yates"><span class="nowrap">Baeza-Yates</span></a>, 1991<sup id="cite_ref-Gonnet_13-0" class="reference"><a href="#cite_note-Gonnet-13">[13]</a></sup></td>
+</tr>
+<tr>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⌈</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mrow>
+                <msup>
+                  <mn>9</mn>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>k</mi>
+                  </mrow>
+                </msup>
+                <mo>−<!-- − --></mo>
+                <msup>
+                  <mn>4</mn>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>k</mi>
+                  </mrow>
+                </msup>
+              </mrow>
+              <mrow>
+                <mn>5</mn>
+                <mo>⋅<!-- ⋅ --></mo>
+                <msup>
+                  <mn>4</mn>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>k</mi>
+                    <mo>−<!-- − --></mo>
+                    <mn>1</mn>
+                  </mrow>
+                </msup>
+              </mrow>
+            </mfrac>
+          </mrow>
+          <mo>⌉</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\lceil {\frac {9^{k}-4^{k}}{5\cdot 4^{k-1}}}\right\rceil }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/948a2bd9093e76096583c83ee1e4a03bb62f691c.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.505ex; width:10.956ex; height:6.509ex;" alt="\left\lceil \frac{9^k-4^k}{5\cdot4^{k-1}} \right\rceil"></span></td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>4</mn>
+        <mo>,</mo>
+        <mn>9</mn>
+        <mo>,</mo>
+        <mn>20</mn>
+        <mo>,</mo>
+        <mn>46</mn>
+        <mo>,</mo>
+        <mn>103</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,4,9,20,46,103,\ldots }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/c06e673cdc040b2f77381c921534991e4c944e32.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:20.729ex; height:2.509ex;" alt="1, 4, 9, 20, 46, 103, \ldots"></span></td>
+<td style="background: #ececec; color: #2C2C2C; font-size: smaller; vertical-align: middle; text-align: center;" class="unknown table-unknown">Unknown</td>
+<td>Tokuda, 1992<sup id="cite_ref-14" class="reference"><a href="#cite_note-14">[14]</a></sup></td>
+</tr>
+<tr>
+<td>Unknown (experimentally derived)</td>
+<td><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>1</mn>
+        <mo>,</mo>
+        <mn>4</mn>
+        <mo>,</mo>
+        <mn>10</mn>
+        <mo>,</mo>
+        <mn>23</mn>
+        <mo>,</mo>
+        <mn>57</mn>
+        <mo>,</mo>
+        <mn>132</mn>
+        <mo>,</mo>
+        <mn>301</mn>
+        <mo>,</mo>
+        <mn>701</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 1,4,10,23,57,132,301,701}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/550a920c9d535aa6f35d4eb700d316b4ad0fbcac.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width:27.25ex; height:2.509ex;" alt="1, 4, 10, 23, 57, 132, 301, 701"></span></td>
+<td style="background: #ececec; color: #2C2C2C; font-size: smaller; vertical-align: middle; text-align: center;" class="unknown table-unknown">Unknown</td>
+<td>Ciura, 2001<sup id="cite_ref-:0_15-0" class="reference"><a href="#cite_note-:0-15">[15]</a></sup></td>
+</tr>
+</tbody></table>
+</dd>
+</dl>
+<p>When the binary representation of <i>N</i> contains many consecutive zeroes, Shellsort using Shell's original gap sequence makes Θ(<i>N</i><sup>2</sup>) comparisons in the worst case. For instance, this case occurs for <i>N</i>
+ equal to a power of two when elements greater and smaller than the 
+median occupy odd and even positions respectively, since they are 
+compared only in the last pass.</p>
+<p>Although it has higher complexity than the <i>O</i>(<i>N</i>&nbsp;log&nbsp;<i>N</i>) that is optimal for comparison sorts, Pratt's version lends itself to <a href="https://en.wikipedia.org/wiki/Sorting_network" title="Sorting network">sorting networks</a> and has the same asymptotic gate complexity as Batcher's <a href="https://en.wikipedia.org/wiki/Bitonic_sorter" title="Bitonic sorter">bitonic sorter</a>.</p>
+<p>Gonnet and Baeza-Yates observed that Shellsort makes the fewest 
+comparisons on average when the ratios of successive gaps are roughly 
+equal to 2.2.<sup id="cite_ref-Gonnet_13-1" class="reference"><a href="#cite_note-Gonnet-13">[13]</a></sup>
+ This is why their sequence with ratio 2.2 and Tokuda's sequence with 
+ratio 2.25 prove efficient. However, it is not known why this is so. 
+Sedgewick recommends to use gaps that have low <a href="https://en.wikipedia.org/wiki/Greatest_common_divisor" title="Greatest common divisor">greatest common divisors</a> or are pairwise <a href="https://en.wikipedia.org/wiki/Coprime" class="mw-redirect" title="Coprime">coprime</a>.<sup id="cite_ref-16" class="reference"><a href="#cite_note-16">[16]</a></sup></p>
+<p>With respect to the average number of comparisons, Ciura's sequence<sup id="cite_ref-:0_15-1" class="reference"><a href="#cite_note-:0-15">[15]</a></sup>
+ has the best known performance; gaps from 701 were not determined but 
+the sequence can be further extended according to the recursive formula <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mo fence="false" stretchy="false">⌊<!-- ⌊ --></mo>
+        <mn>2.25</mn>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+            <mo>−<!-- − --></mo>
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo fence="false" stretchy="false">⌋<!-- ⌋ --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle h_{k}=\lfloor 2.25h_{k-1}\rfloor }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/7d20dec0fb8f534f8d90d061a31bd6db7869a9a1.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width:16.377ex; height:2.843ex;" alt="h_k = \lfloor 2.25 h_{k-1} \rfloor"></span>.</p>
+<p>Tokuda's sequence, defined by the simple formula <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mo fence="false" stretchy="false">⌈<!-- ⌈ --></mo>
+        <msubsup>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+          <mo>′</mo>
+        </msubsup>
+        <mo fence="false" stretchy="false">⌉<!-- ⌉ --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle h_{k}=\lceil h'_{k}\rceil }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/09e1e51c5ae81ab0a5b84e66279a22b929c00078.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:10.086ex; height:3.009ex;" alt="h_k = \lceil h'_k \rceil"></span>, where <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msubsup>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+          <mo>′</mo>
+        </msubsup>
+        <mo>=</mo>
+        <mn>2.25</mn>
+        <msubsup>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+            <mo>−<!-- − --></mo>
+            <mn>1</mn>
+          </mrow>
+          <mo>′</mo>
+        </msubsup>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle h'_{k}=2.25h'_{k-1}+1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/3f36f6cb9539e6f55cdc3b3dbc4a3ce9abc43c63.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:18.315ex; height:3.009ex;" alt="h'_k = 2.25 h'_{k-1} + 1"></span>, <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msubsup>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+          <mo>′</mo>
+        </msubsup>
+        <mo>=</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle h'_{1}=1}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/f12ab84931b43b61975a0c45ad469149b84f8642.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width:6.693ex; height:3.009ex;" alt="h'_1 = 1"></span>, can be recommended for practical applications.</p>
+<h2><span class="mw-headline" id="Computational_complexity">Computational complexity</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=4" title="Edit section: Computational complexity">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The following property holds: after <i>h</i><sub>2</sub>-sorting of any <i>h</i><sub>1</sub>-sorted array, the array remains <i>h</i><sub>1</sub>-sorted.<sup id="cite_ref-17" class="reference"><a href="#cite_note-17">[17]</a></sup> Every <i>h</i><sub>1</sub>-sorted and <i>h</i><sub>2</sub>-sorted array is also (<i>a</i><sub>1</sub><i>h</i><sub>1</sub>+<i>a</i><sub>2</sub><i>h</i><sub>2</sub>)-sorted, for any nonnegative integers <i>a</i><sub>1</sub> and <i>a</i><sub>2</sub>. The worst-case complexity of Shellsort is therefore connected with the <a href="https://en.wikipedia.org/wiki/Coin_problem" title="Coin problem">Frobenius problem</a>: for given integers <i>h</i><sub>1</sub>,..., <i>h</i><sub><i>n</i></sub> with gcd = 1, the Frobenius number <i>g</i>(<i>h</i><sub>1</sub>,..., <i>h</i><sub><i>n</i></sub>) is the greatest integer that cannot be represented as <i>a</i><sub>1</sub><i>h</i><sub>1</sub>+ ... +<i>a</i><sub><i>n</i></sub><i>h</i><sub><i>n</i></sub> with nonnegative integer <i>a</i><sub>1</sub>,..., <i>a</i><sub><i>n</i></sub>.
+ Using known formulae for Frobenius numbers, we can determine the 
+worst-case complexity of Shellsort for several classes of gap sequences.<sup id="cite_ref-18" class="reference"><a href="#cite_note-18">[18]</a></sup> Proven results are shown in the above table.</p>
+<p>With respect to the average number of operations, none of the proven 
+results concerns a practical gap sequence. For gaps that are powers of 
+two, Espelid computed this average as <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mn>0.5349</mn>
+        <mi>N</mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mi>N</mi>
+          </msqrt>
+        </mrow>
+        <mo>−<!-- − --></mo>
+        <mn>0.4387</mn>
+        <mi>N</mi>
+        <mo>−<!-- − --></mo>
+        <mn>0.097</mn>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mi>N</mi>
+          </msqrt>
+        </mrow>
+        <mo>+</mo>
+        <mi>O</mi>
+        <mo stretchy="false">(</mo>
+        <mn>1</mn>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle 0.5349N{\sqrt {N}}-0.4387N-0.097{\sqrt {N}}+O(1)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/b6933cf5e1392a1ae202762311dc70810c268c26.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width:43.921ex; height:3.176ex;" alt="0.5349N\sqrt{N}-0.4387N-0.097\sqrt{N}+O(1)"></span>.<sup id="cite_ref-19" class="reference"><a href="#cite_note-19">[19]</a></sup> <a href="https://en.wikipedia.org/wiki/Donald_Knuth" title="Donald Knuth">Knuth</a> determined the average complexity of sorting an <i>N</i>-element array with two gaps (<i>h</i>, 1) to be <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mrow>
+              <mn>2</mn>
+              <msup>
+                <mi>N</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mn>2</mn>
+                </mrow>
+              </msup>
+            </mrow>
+            <mi>h</mi>
+          </mfrac>
+        </mrow>
+        <mo>+</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mi>π<!-- π --></mi>
+            <msup>
+              <mi>N</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mn>3</mn>
+              </mrow>
+            </msup>
+            <mi>h</mi>
+          </msqrt>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\frac {2N^{2}}{h}}+{\sqrt {\pi N^{3}h}}}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/a84b8eef422f7d6b747ef0b0f3114fd28a67caf3.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.005ex; width:16.276ex; height:5.843ex;" alt="{\displaystyle {\frac {2N^{2}}{h}}+{\sqrt {\pi N^{3}h}}}"></span>.<sup id="cite_ref-Knuth_3-2" class="reference"><a href="#cite_note-Knuth-3">[3]</a></sup> It follows that a two-pass Shellsort with <i>h</i> = Θ(<i>N</i><sup>1/3</sup>) makes on average <i>O</i>(<i>N</i><sup>5/3</sup>) comparisons. <a href="https://en.wikipedia.org/wiki/Andrew_Yao" title="Andrew Yao">Yao</a> found the average complexity of a three-pass Shellsort.<sup id="cite_ref-20" class="reference"><a href="#cite_note-20">[20]</a></sup> His result was refined by Janson and Knuth:<sup id="cite_ref-21" class="reference"><a href="#cite_note-21">[21]</a></sup> the average number of comparisons made during a Shellsort with three gaps (<i>ch</i>, <i>cg</i>, 1), where <i>h</i> and <i>g</i> are coprime, is <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <msup>
+              <mi>N</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mn>2</mn>
+              </mrow>
+            </msup>
+            <mrow>
+              <mn>4</mn>
+              <mi>c</mi>
+              <mi>h</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>+</mo>
+        <mi>O</mi>
+        <mo stretchy="false">(</mo>
+        <mi>N</mi>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\frac {N^{2}}{4ch}}+O(N)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/a32589e7ecf1301e0e5ecc2fb3812c22eef9646a.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.005ex; width:12.915ex; height:5.843ex;" alt="{\displaystyle {\frac {N^{2}}{4ch}}+O(N)}"></span> in the first pass, <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mn>1</mn>
+            <mrow>
+              <mn>8</mn>
+              <mi>g</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mfrac>
+              <mi>π<!-- π --></mi>
+              <mrow>
+                <mi>c</mi>
+                <mi>h</mi>
+              </mrow>
+            </mfrac>
+          </msqrt>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mi>h</mi>
+        <mo>−<!-- − --></mo>
+        <mn>1</mn>
+        <mo stretchy="false">)</mo>
+        <msup>
+          <mi>N</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>3</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mo>/</mo>
+            </mrow>
+            <mn>2</mn>
+          </mrow>
+        </msup>
+        <mo>+</mo>
+        <mi>O</mi>
+        <mo stretchy="false">(</mo>
+        <mi>h</mi>
+        <mi>N</mi>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\frac {1}{8g}}{\sqrt {\frac {\pi }{ch}}}(h-1)N^{3/2}+O(hN)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/9cca20b87d195324c19f20f4b5a690d57d0b9476.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.671ex; width:30.618ex; height:6.176ex;" alt="{\displaystyle {\frac {1}{8g}}{\sqrt {\frac {\pi }{ch}}}(h-1)N^{3/2}+O(hN)}"></span> in the second pass and <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>ψ<!-- ψ --></mi>
+        <mo stretchy="false">(</mo>
+        <mi>h</mi>
+        <mo>,</mo>
+        <mi>g</mi>
+        <mo stretchy="false">)</mo>
+        <mi>N</mi>
+        <mo>+</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mn>1</mn>
+            <mn>8</mn>
+          </mfrac>
+        </mrow>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mfrac>
+              <mi>π<!-- π --></mi>
+              <mi>c</mi>
+            </mfrac>
+          </msqrt>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mi>c</mi>
+        <mo>−<!-- − --></mo>
+        <mn>1</mn>
+        <mo stretchy="false">)</mo>
+        <msup>
+          <mi>N</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>3</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mo>/</mo>
+            </mrow>
+            <mn>2</mn>
+          </mrow>
+        </msup>
+        <mo>+</mo>
+        <mi>O</mi>
+        <mrow>
+          <mo>(</mo>
+          <mo stretchy="false">(</mo>
+          <mi>c</mi>
+          <mo>−<!-- − --></mo>
+          <mn>1</mn>
+          <mo stretchy="false">)</mo>
+          <mi>g</mi>
+          <msup>
+            <mi>h</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>1</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mi>N</mi>
+          <mo>)</mo>
+        </mrow>
+        <mo>+</mo>
+        <mi>O</mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>c</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <msup>
+            <mi>g</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>3</mn>
+            </mrow>
+          </msup>
+          <msup>
+            <mi>h</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \psi 
+(h,g)N+{\frac {1}{8}}{\sqrt {\frac {\pi 
+}{c}}}(c-1)N^{3/2}+O\left((c-1)gh^{1/2}N\right)+O\left(c^{2}g^{3}h^{2}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/2deb95bbaa6f1535e7db095f61ff94cdcc686acc.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.671ex; width:65.858ex; height:6.343ex;" alt="{\displaystyle \psi (h,g)N+{\frac {1}{8}}{\sqrt {\frac {\pi }{c}}}(c-1)N^{3/2}+O\left((c-1)gh^{1/2}N\right)+O\left(c^{2}g^{3}h^{2}\right)}"></span> in the third pass. <i>ψ</i>(<i>h</i>, <i>g</i>) in the last formula is a complicated function asymptotically equal to <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mfrac>
+              <mrow>
+                <mi>π<!-- π --></mi>
+                <mi>h</mi>
+              </mrow>
+              <mn>128</mn>
+            </mfrac>
+          </msqrt>
+        </mrow>
+        <mi>g</mi>
+        <mo>+</mo>
+        <mi>O</mi>
+        <mrow>
+          <mo>(</mo>
+          <msup>
+            <mi>g</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mo>−<!-- − --></mo>
+              <mn>1</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <msup>
+            <mi>h</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mn>1</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+        <mo>+</mo>
+        <mi>O</mi>
+        <mrow>
+          <mo>(</mo>
+          <mi>g</mi>
+          <msup>
+            <mi>h</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mo>−<!-- − --></mo>
+              <mn>1</mn>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mo>/</mo>
+              </mrow>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>)</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\sqrt {\frac {\pi h}{128}}}g+O\left(g^{-1/2}h^{1/2}\right)+O\left(gh^{-1/2}\right)}</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/c7276367871e59a13c8ddbc0d54b9be1c7f367dd.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.338ex; width:39.139ex; height:6.176ex;" alt="{\displaystyle {\sqrt {\frac {\pi h}{128}}}g+O\left(g^{-1/2}h^{1/2}\right)+O\left(gh^{-1/2}\right)}"></span>. In particular, when <i>h</i> = Θ(<i>N</i><sup>7/15</sup>) and <i>g</i> = Θ(<i>N</i><sup>1/5</sup>), the average time of sorting is <i>O</i>(<i>N</i><sup>23/15</sup>).</p>
+<p>Based on experiments, it is conjectured that Shellsort with <a href="https://en.wikipedia.org/wiki/Thomas_N._Hibbard" title="Thomas N. Hibbard">Hibbard</a>'s gap sequence runs in <i>O</i>(<i>N</i><sup>5/4</sup>) average time,<sup id="cite_ref-Knuth_3-3" class="reference"><a href="#cite_note-Knuth-3">[3]</a></sup> and that Gonnet and Baeza-Yates's sequence requires on average 0.41<i>N</i>ln<i>N</i>(ln&nbsp;ln<i>N</i>+1/6) element moves.<sup id="cite_ref-Gonnet_13-2" class="reference"><a href="#cite_note-Gonnet-13">[13]</a></sup>
+ Approximations of the average number of operations formerly put forward
+ for other sequences fail when sorted arrays contain millions of 
+elements.</p>
+<p>The graph below shows the average number of element comparisons in 
+various variants of Shellsort, divided by the theoretical lower bound, 
+i.e. log<sub>2</sub><i>N</i>!, where the sequence 1, 4, 10, 23, 57, 132, 301, 701 has been extended according to the formula <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mo fence="false" stretchy="false">⌊<!-- ⌊ --></mo>
+        <mn>2.25</mn>
+        <msub>
+          <mi>h</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+            <mo>−<!-- − --></mo>
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo fence="false" stretchy="false">⌋<!-- ⌋ --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle h_{k}=\lfloor 2.25h_{k-1}\rfloor }</annotation>
+  </semantics>
+</math></span><img src="Shellsort%20-%20Wikipedia_files/7d20dec0fb8f534f8d90d061a31bd6db7869a9a1.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width:16.377ex; height:2.843ex;" alt="h_k = \lfloor2.25 h_{k-1}\rfloor"></span>.</p>
+<div class="center">
+<div class="floatnone"><a href="https://en.wikipedia.org/wiki/File:Shell_sort_average_number_of_comparisons_%28English%29.svg" class="image"><img alt="Shell sort average number of comparisons (English).svg" src="Shellsort%20-%20Wikipedia_files/512px-Shell_sort_average_number_of_comparisons_English.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shell_sort_average_number_of_comparisons_%28English%29.svg/768px-Shell_sort_average_number_of_comparisons_%28English%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shell_sort_average_number_of_comparisons_%28English%29.svg/1024px-Shell_sort_average_number_of_comparisons_%28English%29.svg.png 2x" data-file-width="512" data-file-height="302" width="512" height="302"></a></div>
+</div>
+<p>Applying the theory of <a href="https://en.wikipedia.org/wiki/Kolmogorov_complexity" title="Kolmogorov complexity">Kolmogorov complexity</a>, Jiang, Li, and <a href="https://en.wikipedia.org/wiki/Paul_Vitanyi" title="Paul Vitanyi">Vitányi</a> proved the following lower bounds for the order of the average number of operations in an <i>m</i>-pass Shellsort: Ω(<i>mN</i><sup>1+1/<i>m</i></sup>) when <i>m</i>≤log<sub>2</sub><i>N</i> and Ω(<i>mN</i>) when <i>m</i>&gt;log<sub>2</sub><i>N</i>.<sup id="cite_ref-22" class="reference"><a href="#cite_note-22">[22]</a></sup> Therefore, Shellsort has prospects of running in an average time that asymptotically grows like <i>N</i>log<i>N</i>
+ only when using gap sequences whose number of gaps grows in proportion 
+to the logarithm of the array size. It is, however, unknown whether 
+Shellsort can reach this asymptotic order of average-case complexity, 
+which is optimal for comparison sorts.</p>
+<p>The worst-case complexity of any version of Shellsort is of higher order: Plaxton, Poonen, and <a href="https://en.wikipedia.org/wiki/Torsten_Suel" title="Torsten Suel">Suel</a> showed that it grows at least as rapidly as Ω(<i>N</i>(log<i>N</i>/log log<i>N</i>)<sup>2</sup>).<sup id="cite_ref-23" class="reference"><a href="#cite_note-23">[23]</a></sup></p>
+<h2><span class="mw-headline" id="Applications">Applications</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=5" title="Edit section: Applications">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Shellsort performs more operations and has higher <a href="https://en.wikipedia.org/wiki/CPU_cache#Cache_miss" title="CPU cache">cache miss ratio</a> than <a href="https://en.wikipedia.org/wiki/Quicksort" title="Quicksort">quicksort</a>. However, since it can be implemented using little code and does not use the <a href="https://en.wikipedia.org/wiki/Call_stack" title="Call stack">call stack</a>, some implementations of the <a href="https://en.wikipedia.org/wiki/Qsort" title="Qsort">qsort</a> function in the <a href="https://en.wikipedia.org/wiki/C_standard_library" title="C standard library">C standard library</a> targeted at <a href="https://en.wikipedia.org/wiki/Embedded_systems" class="mw-redirect" title="Embedded systems">embedded systems</a> use it instead of quicksort. Shellsort is, for example, used in the <a href="https://en.wikipedia.org/wiki/UClibc" title="UClibc">uClibc</a> library.<sup id="cite_ref-24" class="reference"><a href="#cite_note-24">[24]</a></sup> For similar reasons, an implementation of Shellsort is present in the <a href="https://en.wikipedia.org/wiki/Linux_kernel" title="Linux kernel">Linux kernel</a>.<sup id="cite_ref-25" class="reference"><a href="#cite_note-25">[25]</a></sup></p>
+<p>Shellsort can also serve as a sub-algorithm of <a href="https://en.wikipedia.org/wiki/Introsort" title="Introsort">introspective sort</a>,
+ to sort short subarrays and to prevent a pathological slowdown when the
+ recursion depth exceeds a given limit. This principle is employed, for 
+instance, in the <a href="https://en.wikipedia.org/wiki/Bzip2" title="Bzip2">bzip2</a> compressor.<sup id="cite_ref-26" class="reference"><a href="#cite_note-26">[26]</a></sup></p>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=6" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Comb_sort" title="Comb sort">Comb sort</a></li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=7" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist columns references-column-width" style="-moz-column-width: 30em; -webkit-column-width: 30em; column-width: 30em; list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-Pratt-1"><span class="mw-cite-backlink">^ <a href="#cite_ref-Pratt_1-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Pratt_1-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Pratt_1-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><cite class="citation book"><a href="https://en.wikipedia.org/wiki/Vaughan_Ronald_Pratt" class="mw-redirect" title="Vaughan Ronald Pratt">Pratt, Vaughan Ronald</a> (1979). <i>Shellsort and Sorting Networks (Outstanding Dissertations in the Computer Sciences)</i>. Garland. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-8240-4406-1" title="Special:BookSources/0-8240-4406-1">0-8240-4406-1</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.aufirst=Vaughan+Ronald&amp;rft.aulast=Pratt&amp;rft.btitle=Shellsort+and+Sorting+Networks+%28Outstanding+Dissertations+in+the+Computer+Sciences%29&amp;rft.date=1979&amp;rft.genre=book&amp;rft.isbn=0-8240-4406-1&amp;rft.pub=Garland&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="http://www.cs.wcupa.edu/rkline/ds/shell-comparison.html">"Shellsort &amp; Comparisons"</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.btitle=Shellsort+%26+Comparisons&amp;rft.genre=unknown&amp;rft_id=http%3A%2F%2Fwww.cs.wcupa.edu%2Frkline%2Fds%2Fshell-comparison.html&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Knuth-3"><span class="mw-cite-backlink">^ <a href="#cite_ref-Knuth_3-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Knuth_3-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Knuth_3-2"><sup><i><b>c</b></i></sup></a> <a href="#cite_ref-Knuth_3-3"><sup><i><b>d</b></i></sup></a></span> <span class="reference-text"><cite class="citation book"><a href="https://en.wikipedia.org/wiki/Donald_Knuth" title="Donald Knuth">Knuth, Donald E.</a> (1997). "Shell's method". <i>The Art of Computer Programming. Volume 3: Sorting and Searching</i> (2nd ed.). Reading, Massachusetts: Addison-Wesley. pp.&nbsp;83–95. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-201-89685-0" title="Special:BookSources/0-201-89685-0">0-201-89685-0</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Shell%27s+method&amp;rft.aufirst=Donald+E.&amp;rft.aulast=Knuth&amp;rft.btitle=The+Art+of+Computer+Programming.+Volume+3%3A+Sorting+and+Searching&amp;rft.date=1997&amp;rft.edition=2nd&amp;rft.genre=bookitem&amp;rft.isbn=0-201-89685-0&amp;rft.pages=83-95&amp;rft.place=Reading%2C+Massachusetts&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Shell-4"><span class="mw-cite-backlink">^ <a href="#cite_ref-Shell_4-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Shell_4-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><cite class="citation journal">Shell, D. L. (1959). <a rel="nofollow" class="external text" href="http://penguin.ewu.edu/cscd300/Topic/AdvSorting/p30-shell.pdf">"A High-Speed Sorting Procedure"</a> <span style="font-size:85%;">(PDF)</span>. <i>Communications of the ACM</i>. <b>2</b> (7): 30–32. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1145%2F368370.368387">10.1145/368370.368387</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=A+High-Speed+Sorting+Procedure&amp;rft.aufirst=D.+L.&amp;rft.aulast=Shell&amp;rft.date=1959&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fpenguin.ewu.edu%2Fcscd300%2FTopic%2FAdvSorting%2Fp30-shell.pdf&amp;rft_id=info%3Adoi%2F10.1145%2F368370.368387&amp;rft.issue=7&amp;rft.jtitle=Communications+of+the+ACM&amp;rft.pages=30-32&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=2" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">Some older textbooks and references call this the "Shell-Metzner" sort after <a href="https://en.wikipedia.org/w/index.php?title=Marlene_Metzner_Norton&amp;action=edit&amp;redlink=1" class="new" title="Marlene Metzner Norton (page does not exist)">Marlene Metzner Norton</a>, but according to Metzner, "I had nothing to do with the sort, and my name should never have been attached to it." See <cite class="citation web"><a rel="nofollow" class="external text" href="https://xlinux.nist.gov/dads/HTML/shellsort.html">"Shell sort"</a>. National Institute of Standards and Technology<span class="reference-accessdate">. Retrieved <span class="nowrap">2007-07-17</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.btitle=Shell+sort&amp;rft.genre=unknown&amp;rft_id=https%3A%2F%2Fxlinux.nist.gov%2Fdads%2FHTML%2Fshellsort.html&amp;rft.pub=National+Institute+of+Standards+and+Technology&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Sedgewick-6"><span class="mw-cite-backlink">^ <a href="#cite_ref-Sedgewick_6-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Sedgewick_6-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Sedgewick_6-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><cite class="citation book"><a href="https://en.wikipedia.org/wiki/Robert_Sedgewick_%28computer_scientist%29" title="Robert Sedgewick (computer scientist)">Sedgewick, Robert</a> (1998). <i>Algorithms in C</i>. <b>1</b> (3rd ed.). Addison-Wesley. pp.&nbsp;273–281. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-201-31452-5" title="Special:BookSources/0-201-31452-5">0-201-31452-5</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.aufirst=Robert&amp;rft.aulast=Sedgewick&amp;rft.btitle=Algorithms+in+C&amp;rft.date=1998&amp;rft.edition=3rd&amp;rft.genre=book&amp;rft.isbn=0-201-31452-5&amp;rft.pages=273-281&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-KR-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-KR_7-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book"><a href="https://en.wikipedia.org/wiki/Brian_Kernighan" title="Brian Kernighan">Kernighan, Brian W.</a>; <a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" title="Dennis Ritchie">Ritchie, Dennis M.</a> (1996). <i>The C Programming Language</i> (2nd ed.). Prentice Hall. p.&nbsp;62. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/7-302-02412-X" title="Special:BookSources/7-302-02412-X">7-302-02412-X</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.aufirst=Brian+W.&amp;rft.aulast=Kernighan&amp;rft.au=Ritchie%2C+Dennis+M.&amp;rft.btitle=The+C+Programming+Language&amp;rft.date=1996&amp;rft.edition=2nd&amp;rft.genre=book&amp;rft.isbn=7-302-02412-X&amp;rft.pages=62&amp;rft.pub=Prentice+Hall&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-8"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Frank, R. M.; Lazarus, R. B. (1960). "A High-Speed Sorting Procedure". <i>Communications of the ACM</i>. <b>3</b> (1): 20–22. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1145%2F366947.366957">10.1145/366947.366957</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=A+High-Speed+Sorting+Procedure&amp;rft.aufirst=R.+M.&amp;rft.aulast=Frank&amp;rft.au=Lazarus%2C+R.+B.&amp;rft.date=1960&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1145%2F366947.366957&amp;rft.issue=1&amp;rft.jtitle=Communications+of+the+ACM&amp;rft.pages=20-22&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=3" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="#cite_ref-9"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Hibbard, Thomas N. (1963). "An Empirical Study of Minimal Storage Sorting". <i>Communications of the ACM</i>. <b>6</b> (5): 206–213. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1145%2F366552.366557">10.1145/366552.366557</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=An+Empirical+Study+of+Minimal+Storage+Sorting&amp;rft.aufirst=Thomas+N.&amp;rft.aulast=Hibbard&amp;rft.date=1963&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1145%2F366552.366557&amp;rft.issue=5&amp;rft.jtitle=Communications+of+the+ACM&amp;rft.pages=206-213&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=6" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="#cite_ref-10"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Papernov, A. A.; Stasevich, G. V. (1965). <a rel="nofollow" class="external text" href="http://www.mathnet.ru/links/83f0a81df1ec06f76d3683c6cab7d143/ppi751.pdf">"A Method of Information Sorting in Computer Memories"</a> <span style="font-size:85%;">(PDF)</span>. <i>Problems of Information Transmission</i>. <b>1</b> (3): 63–75.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=A+Method+of+Information+Sorting+in+Computer+Memories&amp;rft.aufirst=A.+A.&amp;rft.aulast=Papernov&amp;rft.au=Stasevich%2C+G.+V.&amp;rft.date=1965&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.mathnet.ru%2Flinks%2F83f0a81df1ec06f76d3683c6cab7d143%2Fppi751.pdf&amp;rft.issue=3&amp;rft.jtitle=Problems+of+Information+Transmission&amp;rft.pages=63-75&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=1" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><b><a href="#cite_ref-11"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Incerpi, Janet; <a href="https://en.wikipedia.org/wiki/Robert_Sedgewick_%28computer_scientist%29" title="Robert Sedgewick (computer scientist)">Sedgewick, Robert</a> (1985). "Improved Upper Bounds on Shellsort". <i>Journal of Computer and System Sciences</i>. <b>31</b> (2): 210–224. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1016%2F0022-0000%2885%2990042-x">10.1016/0022-0000(85)90042-x</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Improved+Upper+Bounds+on+Shellsort&amp;rft.aufirst=Janet&amp;rft.aulast=Incerpi&amp;rft.au=Sedgewick%2C+Robert&amp;rft.date=1985&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1016%2F0022-0000%2885%2990042-x&amp;rft.issue=2&amp;rft.jtitle=Journal+of+Computer+and+System+Sciences&amp;rft.pages=210-224&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=31" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Sedgewick2-12"><span class="mw-cite-backlink"><b><a href="#cite_ref-Sedgewick2_12-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal"><a href="https://en.wikipedia.org/wiki/Robert_Sedgewick_%28computer_scientist%29" title="Robert Sedgewick (computer scientist)">Sedgewick, Robert</a> (1986). "A New Upper Bound for Shellsort". <i>Journal of Algorithms</i>. <b>7</b> (2): 159–173. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1016%2F0196-6774%2886%2990001-5">10.1016/0196-6774(86)90001-5</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=A+New+Upper+Bound+for+Shellsort&amp;rft.aufirst=Robert&amp;rft.aulast=Sedgewick&amp;rft.date=1986&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1016%2F0196-6774%2886%2990001-5&amp;rft.issue=2&amp;rft.jtitle=Journal+of+Algorithms&amp;rft.pages=159-173&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=7" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Gonnet-13"><span class="mw-cite-backlink">^ <a href="#cite_ref-Gonnet_13-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Gonnet_13-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Gonnet_13-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><cite class="citation book">Gonnet, Gaston H.; Baeza-Yates, Ricardo (1991). "Shellsort". <i>Handbook of Algorithms and Data Structures: In Pascal and C</i> (2nd ed.). Reading, Massachusetts: Addison-Wesley. pp.&nbsp;161–163. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-201-41607-7" title="Special:BookSources/0-201-41607-7">0-201-41607-7</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Shellsort&amp;rft.au=Baeza-Yates%2C+Ricardo&amp;rft.aufirst=Gaston+H.&amp;rft.aulast=Gonnet&amp;rft.btitle=Handbook+of+Algorithms+and+Data+Structures%3A+In+Pascal+and+C&amp;rft.date=1991&amp;rft.edition=2nd&amp;rft.genre=bookitem&amp;rft.isbn=0-201-41607-7&amp;rft.pages=161-163&amp;rft.place=Reading%2C+Massachusetts&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><b><a href="#cite_ref-14"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book">Tokuda, Naoyuki (1992). "An Improved Shellsort". In van Leeuven, Jan. <i>Proceedings of the IFIP 12th World Computer Congress on Algorithms, Software, Architecture</i>. Amsterdam: North-Holland Publishing Co. pp.&nbsp;449–457. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-444-89747-X" title="Special:BookSources/0-444-89747-X">0-444-89747-X</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=An+Improved+Shellsort&amp;rft.aufirst=Naoyuki&amp;rft.aulast=Tokuda&amp;rft.btitle=Proceedings+of+the+IFIP+12th+World+Computer+Congress+on+Algorithms%2C+Software%2C+Architecture&amp;rft.date=1992&amp;rft.genre=bookitem&amp;rft.isbn=0-444-89747-X&amp;rft.pages=449-457&amp;rft.place=Amsterdam&amp;rft.pub=North-Holland+Publishing+Co.&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-:0-15"><span class="mw-cite-backlink">^ <a href="#cite_ref-:0_15-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-:0_15-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><cite class="citation book">Ciura, Marcin (2001). <a rel="nofollow" class="external text" href="http://sun.aei.polsl.pl/%7Emciura/publikacje/shellsort.pdf">"Best Increments for the Average Case of Shellsort"</a> <span style="font-size:85%;">(PDF)</span>. In Freiwalds, Rusins. <i>Proceedings of the 13th International Symposium on Fundamentals of Computation Theory</i>. London: Springer-Verlag. pp.&nbsp;106–117. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/3-540-42487-3" title="Special:BookSources/3-540-42487-3">3-540-42487-3</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Best+Increments+for+the+Average+Case+of+Shellsort&amp;rft.aufirst=Marcin&amp;rft.aulast=Ciura&amp;rft.btitle=Proceedings+of+the+13th+International+Symposium+on+Fundamentals+of+Computation+Theory&amp;rft.date=2001&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fsun.aei.polsl.pl%2F~mciura%2Fpublikacje%2Fshellsort.pdf&amp;rft.isbn=3-540-42487-3&amp;rft.pages=106-117&amp;rft.place=London&amp;rft.pub=Springer-Verlag&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-16"><span class="mw-cite-backlink"><b><a href="#cite_ref-16"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book"><a href="https://en.wikipedia.org/wiki/Robert_Sedgewick_%28computer_scientist%29" title="Robert Sedgewick (computer scientist)">Sedgewick, Robert</a> (1998). "Shellsort". <i>Algorithms in C++, Parts 1–4: Fundamentals, Data Structure, Sorting, Searching</i>. Reading, Massachusetts: Addison-Wesley. pp.&nbsp;285–292. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-201-35088-2" title="Special:BookSources/0-201-35088-2">0-201-35088-2</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Shellsort&amp;rft.aufirst=Robert&amp;rft.aulast=Sedgewick&amp;rft.btitle=Algorithms+in+C%2B%2B%2C+Parts+1%E2%80%934%3A+Fundamentals%2C+Data+Structure%2C+Sorting%2C+Searching&amp;rft.date=1998&amp;rft.genre=bookitem&amp;rft.isbn=0-201-35088-2&amp;rft.pages=285-292&amp;rft.place=Reading%2C+Massachusetts&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-17"><span class="mw-cite-backlink"><b><a href="#cite_ref-17"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Gale, David; Karp, Richard M. (1972). "A Phenomenon in the Theory of Sorting". <i>Journal of Computer and System Sciences</i>. <b>6</b> (2): 103–115. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1016%2FS0022-0000%2872%2980016-3">10.1016/S0022-0000(72)80016-3</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=A+Phenomenon+in+the+Theory+of+Sorting&amp;rft.aufirst=David&amp;rft.au=Karp%2C+Richard+M.&amp;rft.aulast=Gale&amp;rft.date=1972&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1016%2FS0022-0000%2872%2980016-3&amp;rft.issue=2&amp;rft.jtitle=Journal+of+Computer+and+System+Sciences&amp;rft.pages=103-115&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=6" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-18"><span class="mw-cite-backlink"><b><a href="#cite_ref-18"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Selmer, Ernst S. (1989). "On Shellsort and the Frobenius Problem". <i>BIT Numerical Mathematics</i>. <b>29</b> (1): 37–40. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1007%2FBF01932703">10.1007/BF01932703</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=On+Shellsort+and+the+Frobenius+Problem&amp;rft.aufirst=Ernst+S.&amp;rft.aulast=Selmer&amp;rft.date=1989&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1007%2FBF01932703&amp;rft.issue=1&amp;rft.jtitle=BIT+Numerical+Mathematics&amp;rft.pages=37-40&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=29" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-19"><span class="mw-cite-backlink"><b><a href="#cite_ref-19"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Espelid, Terje O. (1973). "Analysis of a Shellsort Algorithm". <i>BIT Numerical Mathematics</i>. <b>13</b> (4): 394–400. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1007%2FBF01933401">10.1007/BF01933401</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Analysis+of+a+Shellsort+Algorithm&amp;rft.aufirst=Terje+O.&amp;rft.aulast=Espelid&amp;rft.date=1973&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1007%2FBF01933401&amp;rft.issue=4&amp;rft.jtitle=BIT+Numerical+Mathematics&amp;rft.pages=394-400&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=13" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-20"><span class="mw-cite-backlink"><b><a href="#cite_ref-20"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Yao, Andrew Chi-Chih (1980). "An Analysis of (<i>h</i>, <i>k</i>, 1)-Shellsort". <i>Journal of Algorithms</i>. <b>1</b> (1): 14–50. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1016%2F0196-6774%2880%2990003-6">10.1016/0196-6774(80)90003-6</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=An+Analysis+of+%28h%2C+k%2C+1%29-Shellsort&amp;rft.aufirst=Andrew+Chi-Chih&amp;rft.aulast=Yao&amp;rft.date=1980&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1016%2F0196-6774%2880%2990003-6&amp;rft.issue=1&amp;rft.jtitle=Journal+of+Algorithms&amp;rft.pages=14-50&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=1" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-21"><span class="mw-cite-backlink"><b><a href="#cite_ref-21"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Janson, Svante; <a href="https://en.wikipedia.org/wiki/Donald_Knuth" title="Donald Knuth">Knuth, Donald E.</a> (1997). "Shellsort with Three Increments". <i>Random Structures and Algorithms</i>. <b>10</b> (1–2): 125–142. <a href="https://en.wikipedia.org/wiki/ArXiv" title="ArXiv">arXiv</a>:<span class="plainlinks"><a rel="nofollow" class="external text" href="https://arxiv.org/abs/cs/9608105">cs/9608105</a> <img alt="Freely accessible" src="Shellsort%20-%20Wikipedia_files/9px-Lock-green.png" title="Freely accessible" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/14px-Lock-green.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lock-green.svg/18px-Lock-green.svg.png 2x" data-file-width="512" data-file-height="813" width="9" height="14"></span>. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1002%2F%28SICI%291098-2418%28199701%2F03%2910%3A1%2F2%3C125%3A%3AAID-RSA6%3E3.0.CO%3B2-X">10.1002/(SICI)1098-2418(199701/03)10:1/2&lt;125::AID-RSA6&gt;3.0.CO;2-X</a>. <a href="https://en.wikipedia.org/wiki/CiteSeerX" title="CiteSeerX">CiteSeerX</a>: <span class="url"><a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.54.9911">10<wbr>.1<wbr>.1<wbr>.54<wbr>.9911</a></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Shellsort+with+Three+Increments&amp;rft.aufirst=Svante&amp;rft.au=Knuth%2C+Donald+E.&amp;rft.aulast=Janson&amp;rft.date=1997&amp;rft.genre=article&amp;rft_id=info%3Aarxiv%2Fcs%2F9608105&amp;rft_id=info%3Adoi%2F10.1002%2F%28SICI%291098-2418%28199701%2F03%2910%3A1%2F2%3C125%3A%3AAID-RSA6%3E3.0.CO%3B2-X&amp;rft.issue=1%E2%80%932&amp;rft.jtitle=Random+Structures+and+Algorithms&amp;rft.pages=125-142&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=10" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-22"><span class="mw-cite-backlink"><b><a href="#cite_ref-22"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Jiang, Tao; Li, Ming; Vitányi, Paul (2000). "A Lower Bound on the Average-Case Complexity of Shellsort". <i><a href="https://en.wikipedia.org/wiki/Journal_of_the_ACM" title="Journal of the ACM">Journal of the ACM</a></i>. <b>47</b> (5): 905–911. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1145%2F355483.355488">10.1145/355483.355488</a>. <a href="https://en.wikipedia.org/wiki/CiteSeerX" title="CiteSeerX">CiteSeerX</a>: <span class="url"><a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.6.6508">10<wbr>.1<wbr>.1<wbr>.6<wbr>.6508</a></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=A+Lower+Bound+on+the+Average-Case+Complexity+of+Shellsort&amp;rft.aufirst=Tao&amp;rft.aulast=Jiang&amp;rft.au=Li%2C+Ming&amp;rft.au=Vit%C3%A1nyi%2C+Paul&amp;rft.date=2000&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1145%2F355483.355488&amp;rft.issue=5&amp;rft.jtitle=Journal+of+the+ACM&amp;rft.pages=905-911&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=47" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-23"><span class="mw-cite-backlink"><b><a href="#cite_ref-23"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Plaxton, C. Greg; Poonen, Bjarne; Suel, Torsten (1992). "Improved Lower Bounds for Shellsort". <i>Annual Symposium on Foundations of Computer Science</i>. <b>33</b>: 226–235. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://doi.org/10.1109%2FSFCS.1992.267769">10.1109/SFCS.1992.267769</a>. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-8186-2900-2" title="Special:BookSources/0-8186-2900-2">0-8186-2900-2</a>. <a href="https://en.wikipedia.org/wiki/CiteSeerX" title="CiteSeerX">CiteSeerX</a>: <span class="url"><a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.43.1393">10<wbr>.1<wbr>.1<wbr>.43<wbr>.1393</a></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Improved+Lower+Bounds+for+Shellsort&amp;rft.aufirst=C.+Greg&amp;rft.aulast=Plaxton&amp;rft.au=Poonen%2C+Bjarne&amp;rft.au=Suel%2C+Torsten&amp;rft.date=1992&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1109%2FSFCS.1992.267769&amp;rft.isbn=0-8186-2900-2&amp;rft.jtitle=Annual+Symposium+on+Foundations+of+Computer+Science&amp;rft.pages=226-235&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=33" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-24"><span class="mw-cite-backlink"><b><a href="#cite_ref-24"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation web">Novoa, Manuel III. <a rel="nofollow" class="external text" href="http://git.uclibc.org/uClibc/tree/libc/stdlib/stdlib.c#n700">"libc/stdlib/stdlib.c"</a><span class="reference-accessdate">. Retrieved <span class="nowrap">2014-10-29</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.aufirst=Manuel+III&amp;rft.aulast=Novoa&amp;rft.btitle=libc%2Fstdlib%2Fstdlib.c&amp;rft.genre=unknown&amp;rft_id=http%3A%2F%2Fgit.uclibc.org%2FuClibc%2Ftree%2Flibc%2Fstdlib%2Fstdlib.c%23n700&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-25"><span class="mw-cite-backlink"><b><a href="#cite_ref-25"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation web"><a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/72932611b4b05bbd89fafa369d564ac8e449809b/kernel/groups.c#L105">"kernel/groups.c"</a><span class="reference-accessdate">. Retrieved <span class="nowrap">2012-05-05</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.btitle=kernel%2Fgroups.c&amp;rft.genre=unknown&amp;rft_id=https%3A%2F%2Fgithub.com%2Ftorvalds%2Flinux%2Fblob%2F72932611b4b05bbd89fafa369d564ac8e449809b%2Fkernel%2Fgroups.c%23L105&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-26"><span class="mw-cite-backlink"><b><a href="#cite_ref-26"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation web">Julian Seward. <a rel="nofollow" class="external text" href="http://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/lxr/source/src/util/compress/bzip2/blocksort.c#L519">"bzip2/blocksort.c"</a><span class="reference-accessdate">. Retrieved <span class="nowrap">2011-03-30</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.au=Julian+Seward&amp;rft.btitle=bzip2%2Fblocksort.c&amp;rft.genre=unknown&amp;rft_id=http%3A%2F%2Fwww.ncbi.nlm.nih.gov%2FIEB%2FToolBox%2FCPP_DOC%2Flxr%2Fsource%2Fsrc%2Futil%2Fcompress%2Fbzip2%2Fblocksort.c%23L519&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="Bibliography">Bibliography</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=8" title="Edit section: Bibliography">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><cite class="citation book"><a href="https://en.wikipedia.org/wiki/Donald_Knuth" title="Donald Knuth">Knuth, Donald E.</a> (1997). "Shell's method". <i><a href="https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming" title="The Art of Computer Programming">The Art of Computer Programming</a>. Volume 3: Sorting and Searching</i> (2nd ed.). Reading, Massachusetts: Addison-Wesley. pp.&nbsp;83–95. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/0-201-89685-0" title="Special:BookSources/0-201-89685-0">0-201-89685-0</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AShellsort&amp;rft.atitle=Shell%27s+method&amp;rft.aufirst=Donald+E.&amp;rft.aulast=Knuth&amp;rft.btitle=The+Art+of+Computer+Programming.+Volume+3%3A+Sorting+and+Searching&amp;rft.date=1997&amp;rft.edition=2nd&amp;rft.genre=bookitem&amp;rft.isbn=0-201-89685-0&amp;rft.pages=83-95&amp;rft.place=Reading%2C+Massachusetts&amp;rft.pub=Addison-Wesley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></li>
+<li><a rel="nofollow" class="external text" href="http://www.cs.princeton.edu/%7Ers/shell/">Analysis of Shellsort and Related Algorithms</a>, Robert Sedgewick, Fourth European Symposium on Algorithms, Barcelona, September 1996.</li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit&amp;section=9" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<table role="presentation" class="mbox-small plainlinks sistersitebox" style="background-color:#f9f9f9;border:1px solid #aaa;color:#000">
+<tbody><tr>
+<td class="mbox-image"><img alt="" src="Shellsort%20-%20Wikipedia_files/40px-Wikibooks-logo-en-noslogan.png" class="noviewer" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/60px-Wikibooks-logo-en-noslogan.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/80px-Wikibooks-logo-en-noslogan.svg.png 2x" data-file-width="400" data-file-height="400" width="40" height="40"></td>
+<td class="mbox-text plainlist">The Wikibook <i><a href="https://en.wikibooks.org/wiki/Algorithm_implementation" class="extiw" title="wikibooks:Algorithm implementation">Algorithm implementation</a></i> has a page on the topic of: <i><b><a href="https://en.wikibooks.org/wiki/Algorithm_implementation/Sorting/Shell_sort" class="extiw" title="wikibooks:Algorithm implementation/Sorting/Shell sort">Shell sort</a></b></i></td>
+</tr>
+</tbody></table>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://web.archive.org/web/20150310043846/http://www.sorting-algorithms.com/shell-sort">Animated Sorting Algorithms: Shell Sort</a> at the <a href="https://en.wikipedia.org/wiki/Wayback_Machine" title="Wayback Machine">Wayback Machine</a> (archived 10 March 2015) – graphical demonstration</li>
+<li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=CmPA7zE8mx0">Shellsort with gaps 5, 3, 1 as a Hungarian folk dance</a></li>
+</ul>
+<div role="navigation" class="navbox" aria-labelledby="Sorting_algorithms" style="padding:3px">
+<table class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit" id="collapsibleTable0">
+<tbody><tr>
+<th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a id="collapseButton0" href="#">hide</a>]</span>
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="https://en.wikipedia.org/wiki/Template:Sorting" title="Template:Sorting"><abbr title="View this template" style=";;background:none transparent;border:none;">v</abbr></a></li>
+<li class="nv-talk"><a href="https://en.wikipedia.org/wiki/Template_talk:Sorting" title="Template talk:Sorting"><abbr title="Discuss this template" style=";;background:none transparent;border:none;">t</abbr></a></li>
+<li class="nv-edit"><a class="external text" href="https://en.wikipedia.org/w/index.php?title=Template:Sorting&amp;action=edit"><abbr title="Edit this template" style=";;background:none transparent;border:none;">e</abbr></a></li>
+</ul>
+</div>
+<div id="Sorting_algorithms" style="font-size:114%;margin:0 4em"><a href="https://en.wikipedia.org/wiki/Sorting_algorithm" title="Sorting algorithm">Sorting algorithms</a></div>
+</th>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Theory</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Computational_complexity_theory" title="Computational complexity theory">Computational complexity theory</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Big_O_notation" title="Big O notation">Big O notation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Total_order" title="Total order">Total order</a></li>
+<li><a href="https://en.wikipedia.org/wiki/List_%28computing%29" class="mw-redirect" title="List (computing)">Lists</a></li>
+<li><a href="https://en.wikipedia.org/wiki/In-place_algorithm" title="In-place algorithm">Inplacement</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability" title="Sorting algorithm">Stability</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Comparison_sort" title="Comparison sort">Comparison sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Adaptive_sort" title="Adaptive sort">Adaptive sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Sorting_network" title="Sorting network">Sorting network</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Integer_sorting" title="Integer sorting">Integer sorting</a></li>
+<li><a href="https://en.wikipedia.org/wiki/X_%2B_Y_sorting" title="X + Y sorting">X + Y sorting</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Transdichotomous_model" title="Transdichotomous model">Transdichotomous model</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Quantum_sort" title="Quantum sort">Quantum sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Exchange sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Bubble_sort" title="Bubble sort">Bubble sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cocktail_shaker_sort" title="Cocktail shaker sort">Cocktail shaker sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Odd%E2%80%93even_sort" title="Odd–even sort">Odd–even sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Comb_sort" title="Comb sort">Comb sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gnome_sort" title="Gnome sort">Gnome sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Quicksort" title="Quicksort">Quicksort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Slowsort" title="Slowsort">Slowsort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Stooge_sort" title="Stooge sort">Stooge sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bogosort" title="Bogosort">Bogosort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="https://en.wikipedia.org/wiki/Selection_algorithm" title="Selection algorithm">Selection sorts</a></th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Selection_sort" title="Selection sort">Selection sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Heapsort" title="Heapsort">Heapsort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Smoothsort" title="Smoothsort">Smoothsort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cartesian_tree#Application_in_sorting" title="Cartesian tree">Cartesian tree sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tournament_sort" title="Tournament sort">Tournament sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cycle_sort" title="Cycle sort">Cycle sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Weak_heap" title="Weak heap">Weak heapsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Insertion sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Insertion_sort" title="Insertion sort">Insertion sort</a></li>
+<li><a class="mw-selflink selflink">Shellsort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Splaysort" title="Splaysort">Splaysort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tree_sort" title="Tree sort">Tree sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Library_sort" title="Library sort">Library sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Patience_sorting" title="Patience sorting">Patience sorting</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Merge sorts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Merge_sort" title="Merge sort">Merge sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cascade_merge_sort" title="Cascade merge sort">Cascade merge sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Oscillating_merge_sort" title="Oscillating merge sort">Oscillating merge sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Polyphase_merge_sort" title="Polyphase merge sort">Polyphase merge sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Distribution sorts</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/American_flag_sort" title="American flag sort">American flag sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bead_sort" title="Bead sort">Bead sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bucket_sort" title="Bucket sort">Bucket sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Burstsort" title="Burstsort">Burstsort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Counting_sort" title="Counting sort">Counting sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pigeonhole_sort" title="Pigeonhole sort">Pigeonhole sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Proxmap_sort" title="Proxmap sort">Proxmap sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Radix_sort" title="Radix sort">Radix sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Flashsort" title="Flashsort">Flashsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Concurrent sorts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Bitonic_sorter" title="Bitonic sorter">Bitonic sorter</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Batcher_odd%E2%80%93even_mergesort" title="Batcher odd–even mergesort">Batcher odd–even mergesort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pairwise_sorting_network" title="Pairwise sorting network">Pairwise sorting network</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="https://en.wikipedia.org/wiki/Hybrid_algorithm" title="Hybrid algorithm">Hybrid sorts</a></th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Block_sort" title="Block sort">Block merge sort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Timsort" title="Timsort">Timsort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Introsort" title="Introsort">Introsort</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Spreadsort" title="Spreadsort">Spreadsort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Other</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
+<div style="padding:0em 0.25em">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Topological_sorting" title="Topological sorting">Topological sorting</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pancake_sorting" title="Pancake sorting">Pancake sorting</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Spaghetti_sort" title="Spaghetti sort">Spaghetti sort</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1257
+Cached time: 20170504045127
+Cache expiry: 2592000
+Dynamic content: false
+CPU time usage: 0.308 seconds
+Real time usage: 0.570 seconds
+Preprocessor visited node count: 2001/1000000
+Preprocessor generated node count: 0/1500000
+Post‐expand include size: 66067/2097152 bytes
+Template argument size: 1211/2097152 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 1/500
+Lua time usage: 0.122/10.000 seconds
+Lua memory usage: 3.51 MB/50 MB
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  259.169      1 -total
+ 60.84%  157.671      1 Template:Reflist
+ 23.01%   59.622      9 Template:Cite_book
+ 20.70%   53.646     13 Template:Cite_journal
+ 13.49%   34.963      1 Template:Infobox_Algorithm
+ 12.43%   32.227      1 Template:Infobox
+  6.43%   16.669      5 Template:Cite_web
+  4.61%   11.936      1 Template:Use_dmy_dates
+  4.13%   10.699      1 Template:Sorting
+  4.09%   10.608      1 Template:Wikibooks
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:77355-0!*!0!!en!4!*!math=5 and timestamp 20170504045127 and revision id 769695749
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;oldid=769695749">https://en.wikipedia.org/w/index.php?title=Shellsort&amp;oldid=769695749</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Sorting_algorithms" title="Category:Sorting algorithms">Sorting algorithms</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Comparison_sorts" title="Category:Comparison sorts">Comparison sorts</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Pages_using_deprecated_image_syntax" title="Category:Pages using deprecated image syntax">Pages using deprecated image syntax</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Webarchive_template_wayback_links" title="Category:Webarchive template wayback links">Webarchive template wayback links</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Use_dmy_dates_from_September_2010" title="Category:Use dmy dates from September 2010">Use dmy dates from September 2010</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="https://en.wikipedia.org/wiki/Special:MyTalk" title="Discussion about edits from this IP address [Alt+Shift+n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="https://en.wikipedia.org/wiki/Special:MyContributions" title="A list of edits made from this IP address [Alt+Shift+y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="https://en.wikipedia.org/w/index.php?title=Special:CreateAccount&amp;returnto=Shellsort" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="https://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Shellsort" title="You're encouraged to log in; however, it's not mandatory. [Alt+Shift+o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li id="ca-nstab-main" class="selected"><span><a href="https://en.wikipedia.org/wiki/Shellsort" title="View the content page [Alt+Shift+c]" accesskey="c">Article</a></span></li>
+															<li id="ca-talk"><span><a href="https://en.wikipedia.org/wiki/Talk:Shellsort" title="Discussion about the content page [Alt+Shift+t]" accesskey="t" rel="discussion">Talk</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label" tabindex="0">
+							<span>Variants</span><a href="#" tabindex="-1"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="https://en.wikipedia.org/wiki/Shellsort">Read</a></span></li>
+															<li id="ca-edit"><span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=edit" title="Edit this page [Alt+Shift+e]" accesskey="e">Edit</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label" style="">
+						<h3 id="p-cactions-label" tabindex="0"><span>More</span><a href="#" tabindex="-1"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/w/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input name="search" placeholder="Search Wikipedia" title="Search Wikipedia [Alt+Shift+f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton" type="submit">							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+			<h3 id="p-navigation-label">Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="https://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-featuredcontent"><a href="https://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li><li id="n-currentevents"><a href="https://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li><li id="n-randompage"><a href="https://en.wikipedia.org/wiki/Special:Random" title="Load a random article [Alt+Shift+x]" accesskey="x">Random article</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li><li id="n-shoplink"><a href="https://shop.wikimedia.org/" title="Visit the Wikipedia store">Wikipedia store</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+			<h3 id="p-interaction-label">Interaction</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-help"><a href="https://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-aboutsite"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li><li id="n-portal"><a href="https://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li><li id="n-recentchanges"><a href="https://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li><li id="n-contactpage"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="https://en.wikipedia.org/wiki/Special:WhatLinksHere/Shellsort" title="List of all English Wikipedia pages containing links to this page [Alt+Shift+j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="https://en.wikipedia.org/wiki/Special:RecentChangesLinked/Shellsort" rel="nofollow" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="https://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [Alt+Shift+u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="https://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;oldid=769695749" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;action=info" title="More information about this page">Page information</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Q848955" title="Link to connected data repository item [Alt+Shift+g]" accesskey="g">Wikidata item</a></li><li id="t-cite"><a href="https://en.wikipedia.org/w/index.php?title=Special:CiteThisPage&amp;page=Shellsort&amp;id=769695749" title="Information on how to cite this page">Cite this page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+			<h3 id="p-coll-print_export-label">Print/export</h3>
+
+			<div class="body">
+									<ul>
+						<li id="coll-create_a_book"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Shellsort">Create a book</a></li><li id="coll-download-as-rdf2latex"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Shellsort&amp;returnto=Shellsort&amp;oldid=769695749&amp;writer=rdf2latex">Download as PDF</a></li><li id="t-print"><a href="https://en.wikipedia.org/w/index.php?title=Shellsort&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span class="uls-settings-trigger" title="Language settings" tabindex="0" role="button" aria-haspopup="true"></span>
+			<h3 id="p-lang-label">Languages</h3>
+
+			<div class="body">
+									<ul>
+						<li class="interlanguage-link interwiki-bg"><a href="https://bg.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D1%8A%D0%BC_%D0%BD%D0%B0_%D0%A8%D0%B5%D0%BB" title="Алгоритъм на Шел – Bulgarian" hreflang="bg" class="interlanguage-link-target" lang="bg">Български</a></li><li class="interlanguage-link interwiki-cs"><a href="https://cs.wikipedia.org/wiki/Shellovo_%C5%99azen%C3%AD" title="Shellovo řazení – Czech" hreflang="cs" class="interlanguage-link-target" lang="cs">Čeština</a></li><li class="interlanguage-link interwiki-de"><a href="https://de.wikipedia.org/wiki/Shellsort" title="Shellsort – German" hreflang="de" class="interlanguage-link-target" lang="de">Deutsch</a></li><li class="interlanguage-link interwiki-es"><a href="https://es.wikipedia.org/wiki/Ordenamiento_Shell" title="Ordenamiento Shell – Spanish" hreflang="es" class="interlanguage-link-target" lang="es">Español</a></li><li class="interlanguage-link interwiki-fa"><a href="https://fa.wikipedia.org/wiki/%D9%85%D8%B1%D8%AA%D8%A8%E2%80%8C%D8%B3%D8%A7%D8%B2%DB%8C_%D8%B4%D9%84" title="مرتب‌سازی شل – Persian" hreflang="fa" class="interlanguage-link-target" lang="fa">فارسی</a></li><li class="interlanguage-link interwiki-fr"><a href="https://fr.wikipedia.org/wiki/Tri_de_Shell" title="Tri de Shell – French" hreflang="fr" class="interlanguage-link-target" lang="fr">Français</a></li><li class="interlanguage-link interwiki-ko"><a href="https://ko.wikipedia.org/wiki/%EC%85%B8_%EC%A0%95%EB%A0%AC" title="셸 정렬 – Korean" hreflang="ko" class="interlanguage-link-target" lang="ko">한국어</a></li><li class="interlanguage-link interwiki-hy"><a href="https://hy.wikipedia.org/wiki/%D5%87%D5%A5%D5%AC%D5%AC%D5%AB_%D5%BF%D5%A5%D5%BD%D5%A1%D5%AF%D5%A1%D5%BE%D5%B8%D6%80%D5%B8%D6%82%D5%B4" title="Շելլի տեսակավորում – Armenian" hreflang="hy" class="interlanguage-link-target" lang="hy">Հայերեն</a></li><li class="interlanguage-link interwiki-is"><a href="https://is.wikipedia.org/wiki/Skeljar%C3%B6%C3%B0un" title="Skeljaröðun – Icelandic" hreflang="is" class="interlanguage-link-target" lang="is">Íslenska</a></li><li class="interlanguage-link interwiki-it"><a href="https://it.wikipedia.org/wiki/Shell_sort" title="Shell sort – Italian" hreflang="it" class="interlanguage-link-target" lang="it">Italiano</a></li><li class="interlanguage-link interwiki-he"><a href="https://he.wikipedia.org/wiki/%D7%9E%D7%99%D7%95%D7%9F_%D7%A9%D7%9C" title="מיון של – Hebrew" hreflang="he" class="interlanguage-link-target" lang="he">עברית</a></li><li class="interlanguage-link interwiki-lt"><a href="https://lt.wikipedia.org/wiki/%C5%A0elo_rikiavimo_algoritmas" title="Šelo rikiavimo algoritmas – Lithuanian" hreflang="lt" class="interlanguage-link-target" lang="lt">Lietuvių</a></li><li class="interlanguage-link interwiki-ml"><a href="https://ml.wikipedia.org/wiki/%E0%B4%B7%E0%B5%86%E0%B5%BD_%E0%B4%B8%E0%B5%8B%E0%B5%BC%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%8D" title="ഷെൽ സോർട്ട് – Malayalam" hreflang="ml" class="interlanguage-link-target" lang="ml">മലയാളം</a></li><li class="interlanguage-link interwiki-nl"><a href="https://nl.wikipedia.org/wiki/Shellsort" title="Shellsort – Dutch" hreflang="nl" class="interlanguage-link-target" lang="nl">Nederlands</a></li><li class="interlanguage-link interwiki-ja"><a href="https://ja.wikipedia.org/wiki/%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%BD%E3%83%BC%E3%83%88" title="シェルソート – Japanese" hreflang="ja" class="interlanguage-link-target" lang="ja">日本語</a></li><li class="interlanguage-link interwiki-no"><a href="https://no.wikipedia.org/wiki/Shellsortering" title="Shellsortering – Norwegian" hreflang="no" class="interlanguage-link-target" lang="no">Norsk bokmål</a></li><li class="interlanguage-link interwiki-pl badge-Q17437798 badge-goodarticle" title="good article"><a href="https://pl.wikipedia.org/wiki/Sortowanie_Shella" title="Sortowanie Shella – Polish" hreflang="pl" class="interlanguage-link-target" lang="pl">Polski</a></li><li class="interlanguage-link interwiki-pt"><a href="https://pt.wikipedia.org/wiki/Shell_sort" title="Shell sort – Portuguese" hreflang="pt" class="interlanguage-link-target" lang="pt">Português</a></li><li class="interlanguage-link interwiki-ru"><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0_%D0%A8%D0%B5%D0%BB%D0%BB%D0%B0" title="Сортировка Шелла – Russian" hreflang="ru" class="interlanguage-link-target" lang="ru">Русский</a></li><li class="interlanguage-link interwiki-sk"><a href="https://sk.wikipedia.org/wiki/Shell_sort" title="Shell sort – Slovak" hreflang="sk" class="interlanguage-link-target" lang="sk">Slovenčina</a></li><li class="interlanguage-link interwiki-sl"><a href="https://sl.wikipedia.org/wiki/Shellovo_urejanje" title="Shellovo urejanje – Slovenian" hreflang="sl" class="interlanguage-link-target" lang="sl">Slovenščina</a></li><li class="interlanguage-link interwiki-sr"><a href="https://sr.wikipedia.org/wiki/Shellsort" title="Shellsort – Serbian" hreflang="sr" class="interlanguage-link-target" lang="sr">Српски / srpski</a></li><li class="interlanguage-link interwiki-sv"><a href="https://sv.wikipedia.org/wiki/Shell_sort" title="Shell sort – Swedish" hreflang="sv" class="interlanguage-link-target" lang="sv">Svenska</a></li><li class="interlanguage-link interwiki-tr"><a href="https://tr.wikipedia.org/wiki/Kabuk_s%C4%B1ralamas%C4%B1" title="Kabuk sıralaması – Turkish" hreflang="tr" class="interlanguage-link-target" lang="tr">Türkçe</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D1%82%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F_%D0%A8%D0%B5%D0%BB%D0%BB%D0%B0" title="Сортування Шелла – Ukrainian" hreflang="uk" class="interlanguage-link-target" lang="uk">Українська</a></li><li class="interlanguage-link interwiki-zh"><a href="https://zh.wikipedia.org/wiki/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F" title="希尔排序 – Chinese" hreflang="zh" class="interlanguage-link-target" lang="zh">中文</a></li>					</ul>
+				<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Q848955#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last edited on 11 March 2017, at 02:58.</li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="https://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="https://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="https://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wikimediafoundation.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="https://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-cookiestatement"><a href="https://wikimediafoundation.org/wiki/Cookie_statement">Cookie statement</a></li>
+											<li id="footer-places-mobileview"><a href="https://en.m.wikipedia.org/w/index.php?title=Shellsort&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="https://wikimediafoundation.org/"><img src="Shellsort%20-%20Wikipedia_files/wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" alt="Wikimedia Foundation" width="88" height="31"></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="https://www.mediawiki.org/"><img src="Shellsort%20-%20Wikipedia_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/static/images/poweredby_mediawiki_132x47.png 1.5x, /static/images/poweredby_mediawiki_176x62.png 2x" width="88" height="31"></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.308","walltime":"0.570","ppvisitednodes":{"value":2001,"limit":1000000},"ppgeneratednodes":{"value":0,"limit":1500000},"postexpandincludesize":{"value":66067,"limit":2097152},"templateargumentsize":{"value":1211,"limit":2097152},"expansiondepth":{"value":12,"limit":40},"expensivefunctioncount":{"value":1,"limit":500},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%  259.169      1 -total"," 60.84%  157.671      1 Template:Reflist"," 23.01%   59.622      9 Template:Cite_book"," 20.70%   53.646     13 Template:Cite_journal"," 13.49%   34.963      1 Template:Infobox_Algorithm"," 12.43%   32.227      1 Template:Infobox","  6.43%   16.669      5 Template:Cite_web","  4.61%   11.936      1 Template:Use_dmy_dates","  4.13%   10.699      1 Template:Sorting","  4.09%   10.608      1 Template:Wikibooks"]},"scribunto":{"limitreport-timeusage":{"value":"0.122","limit":"10.000"},"limitreport-memusage":{"value":3683302,"limit":52428800}},"cachereport":{"origin":"mw1257","timestamp":"20170504045127","ttl":2592000,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":661,"wgHostname":"mw1257"});});</script>
+	
+
+<div style="display: none; font-size: 13px;" class="suggestions"><div class="suggestions-results"></div><div class="suggestions-special"></div></div><a accesskey="v" href="https://en.wikipedia.org/wiki/Shellsort?action=edit" style="display: none;"></a><div class="itanywhere-activator" title="Google Translator Anywhere" style="left: 732px; top: 2635px; display: none;"></div></body></html>
