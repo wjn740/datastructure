@@ -34,6 +34,32 @@ int LocateVex(struct ALGraph *__G, char name)
 	return -1;
 }
 
+struct ArcNode* searchShortest(struct ALGraph *__G, char *visited, char name)
+{
+  int i;
+  struct ArcNode *p;
+  struct ArcNode *q=NULL;
+  int d;
+  i=LocateVex(__G, name);
+  p=__G->vertices[i].firstarc;
+  while(p) {
+    if (visited[p->adjvex] == 0) {
+      d = *(p->info);
+      q=p;
+    } 
+    p=p->nextarc;
+  }
+  p=__G->vertices[i].firstarc;
+  while (p) {
+    if (d > *(p->info) && visited[p->adjvex] == 0) {
+      d = *(p->info);
+      q=p;
+    } 
+    p=p->nextarc;
+  }
+  return q;
+}
+
 void CreateALGraph(struct ALGraph *_G)
 {
 	int i,j;
@@ -96,11 +122,41 @@ void show(struct ALGraph *_G)
 		}
 	}
 }
+
+void dijkstra(struct ALGraph *G, char *visited, char name)
+{
+    int i;
+    int vexnum=G->vexnum;
+    struct ArcNode *q;
+    i=LocateVex(G, name);
+#if 0
+    visited[i]=1;
+    vexnum--;
+    printf("%c\n", G->vertices[i].data);
+#endif
+
+    while(vexnum--) {
+      q=searchShortest(G, visited, name);
+      if (q==NULL) {
+        continue;
+      }
+      printf("%d\n", q->adjvex);
+      visited[q->adjvex]=1;
+      printf("%c:%d\n", G->vertices[q->adjvex].data, *(q->info));
+      name=G->vertices[q->adjvex].data;
+    }
+    
+}
 int main(int argc,char **argv)
 {
 	struct ALGraph G;
+  char *visited;
 	CreateALGraph(&G);
 	printf("\n======================================================\n");
 	show(&G);
+
+  visited=(char *)malloc(G.vexnum);
+  dijkstra(&G, visited, 'p');
+  free(visited);
 	return 0;
 }
